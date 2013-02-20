@@ -19,5 +19,15 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    MpiData dBase;
+    ofPolyline  makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal );
+    
+    MpiData     dBase;
+    
+    ofEasyCam   cam;
+    
+    ofRectangle frame;
+    
+    string      city;
+    ofPolyline  pop, popImm;
+    int         minPop,maxPop;
 };

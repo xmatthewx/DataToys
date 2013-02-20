@@ -129,6 +129,18 @@ int MpiData::getYearId( int _year ){
     return -1;
 }
 
+int MpiData::getYear( int _yearId){
+    return years[_yearId];
+}
+
+int MpiData::getFirstYear(){
+    return years[0];
+}
+
+int MpiData::getLastYear(){
+    return years[getTotalYears()-1];
+}
+
 int MpiData::getCityId( string _city ){
     for (int i = 0; i < cities.size(); i++){
         if ( cities[i].name == _city)
@@ -158,22 +170,51 @@ CitySample& MpiData::getSample( int _yearId, int _cityId ){
     return samples[_yearId][_cityId];
 }
 
-int MpiData::getCityPop( int _cityId, int _year ){
-    
-    int yearId = getYearId(_year);
-    
-    if ( yearId != -1){
-        return samples[yearId][_cityId].pop;
-    } else {
+float MpiData::getMinVal( mpiValue _mpiValue, int _cityId){
+    float minVal = 100000000;
+    for (int i = 0; i < years.size(); i++) {
+        float val = samples[i][_cityId].getValue( _mpiValue );
         
-        if ( (_year < years[0]) || ( _year > years[years.size()-1]) ){
-            ofLog(OF_LOG_NOTICE,"The year you are searching for is not inside the sample spectrum");
-            return -1;
-        }
-        
-        //  Interpolate
-        //
-        
+        if  (val < minVal)
+            minVal = val;
     }
+    
+    return minVal;
 }
 
+float MpiData::getMaxVal( mpiValue _mpiValue, int _cityId){
+    float maxVal = 0;
+    for (int i = 0; i < years.size(); i++) {
+        float val = samples[i][_cityId].getValue( _mpiValue );
+        
+        if  (val > maxVal)
+            maxVal = val;
+    }
+    
+    return maxVal;
+}
+
+float MpiData::getMinVal( mpiValue _mpiValue ){
+    
+    float minVal = 100000000;
+    for (int i = 0; i < getTotalCities(); i++ ){
+        float val = getMinVal( _mpiValue, i );
+        
+        if  (val < minVal)
+            minVal = val;
+    }
+    
+    return minVal;
+}
+
+float MpiData::getMaxVal( mpiValue _mpiValue ){
+    float minVal = 0;
+    for (int i = 0; i < getTotalCities(); i++ ){
+        float val = getMinVal( _mpiValue, i );
+        
+        if  (val > minVal)
+            minVal = val;
+    }
+    
+    return minVal;
+}

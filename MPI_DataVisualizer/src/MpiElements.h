@@ -18,6 +18,33 @@ enum mpiStarsIndex {
     //
 };
 
+enum mpiValue{
+    MPI_CITY_ID = 0,
+    MPI_POPULATION_TOTAL = 1,
+    MPI_POPULATION_IMMIGRANTS = 2,
+    MPI_POPULATION_SHARE = 3,
+    MPI_RECENT_ARRIVALS = 4,
+    MPI_DEGREE_IMMIGRANTS_NO = 5,
+    MPI_DEGREE_IMMIGRANTS_HIGHSCHOOL = 6,
+    MPI_DEGREE_IMMIGRANTS_BA = 7,
+    MPI_DEGREE_NATIVE_NO = 8,
+    MPI_DEGREE_NATIVE_HIGHSCHOOL = 9,
+    MPI_DEGREE_NATIVE_BA = 10,
+    MPI_EMPLOYED_TOTAL = 11,
+    MPI_EMPLOYED_IMMIGRANTS = 12,
+    MPI_EMPLOYED_NATIVE = 13,
+    MPI_EMPLOYED_SHARE = 14,
+    MPI_UNEMPLOYMENT = 15,
+    MPI_POVERTY = 16,
+    MPI_HOMEOWNERS = 17,
+    MPI_ETHNIC_BLACK = 18,
+    MPI_ETHNIC_ASIAN = 19,
+    MPI_ETHNIC_LATINO = 20,
+    MPI_ETHNIC_NONWHITE = 21,
+    MPI_ETHNIC_NONENGLISH_SPK = 22,
+    MPI_CREATIVE_CLASS = 23
+};
+
 //  GeoLocalization information of the city
 //
 struct CityLoc{
@@ -32,6 +59,19 @@ struct CityLoc{
 //  Sample by City
 //
 struct CitySample {
+    
+    float   getValue( mpiValue _mpiValue ){
+        switch (_mpiValue) {
+            case MPI_CITY_ID:
+                return nId;
+            case MPI_POPULATION_TOTAL:
+                return pop;
+            case MPI_POPULATION_IMMIGRANTS:
+                return popImm;
+            default:
+                return -1;
+        }
+    }
     
     //  City ID
     //
