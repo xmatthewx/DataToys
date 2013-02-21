@@ -18,11 +18,8 @@ void testApp::setup(){
     frame.set(0,0,600,100);
     
     city = "New York";
-    maxPop = MAX(dBase.getMaxVal( MPI_POPULATION_TOTAL),
-                    dBase.getMaxVal( MPI_POPULATION_IMMIGRANTS) );
-    
-    minPop = MIN(dBase.getMinVal( MPI_POPULATION_TOTAL),
-                    dBase.getMinVal( MPI_POPULATION_IMMIGRANTS) );
+    maxPop = MAX(dBase.getMaxVal( MPI_POPULATION_TOTAL), dBase.getMaxVal( MPI_POPULATION_IMMIGRANTS) );
+    minPop = MIN(dBase.getMinVal( MPI_POPULATION_TOTAL), dBase.getMinVal( MPI_POPULATION_IMMIGRANTS) );
     
     pop = makeChart( dBase.getCityId(city) , MPI_POPULATION_TOTAL , frame, minPop, maxPop );
     popImm = makeChart( dBase.getCityId(city) , MPI_POPULATION_IMMIGRANTS, frame, minPop, maxPop );
@@ -70,7 +67,8 @@ void testApp::draw(){
     //
     ofNoFill();
     ofSetColor(255);
-    ofRect(frame);
+    ofLine( ofPoint(0,0), ofPoint(0,frame.height));
+    ofLine( ofPoint(0,frame.height), ofPoint(frame.width,frame.height));
     ofDrawBitmapString( city + " Population and Immigran Population",ofPoint(frame.width*0.5-200,-10) );
     
     ofDrawBitmapString( ofToString(maxPop), ofPoint(-100,0));
@@ -84,6 +82,8 @@ void testApp::draw(){
     ofDrawBitmapString( ofToString(dBase.getYear(2) ), ofPoint(0,-frame.width));
     ofPopMatrix();
     
+    // Draw population
+    //
     ofFill();
     ofSetColor(255,0,0,100);
     ofBeginShape();
@@ -92,6 +92,8 @@ void testApp::draw(){
     }
     ofEndShape();
     
+    //  Draw population of immigration
+    //
     ofTranslate(0, 0, 1);
     ofSetColor(0,0,255,100);
     ofBeginShape();
