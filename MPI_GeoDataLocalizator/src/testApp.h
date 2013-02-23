@@ -3,7 +3,7 @@
 
 #include "ofMain.h"
 
-//  Thanks to Tom Carden, for ModestMaps code
+//  Thanks to Tom Carden, for ModestMaps code ( http://modestmaps.com/index.html )
 //  https://github.com/RandomEtc/modestmaps-of
 //
 #include "Map.h"

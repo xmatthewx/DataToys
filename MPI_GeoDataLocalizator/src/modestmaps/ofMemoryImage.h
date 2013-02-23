@@ -11,9 +11,6 @@
 
 #include "ofImage.h"
 
-
-
-
 class   ofMemoryImage : public ofImage { 
 	
 public:
