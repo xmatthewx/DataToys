@@ -17,12 +17,58 @@ void testApp::setup(){
     
     frame.set(0,0,600,100);
     
-    city = "New York";
-    maxPop = MAX(dBase.getMaxVal( MPI_POPULATION_TOTAL), dBase.getMaxVal( MPI_POPULATION_IMMIGRANTS) );
-    minPop = MIN(dBase.getMinVal( MPI_POPULATION_TOTAL), dBase.getMinVal( MPI_POPULATION_IMMIGRANTS) );
+    cities.setup("Cities");
+    for(int i = 0; i < dBase.getTotalCities(); i++){
+        ofxToggle newCityButton;
+        newCityButton.setup( dBase.getCity(i), false );
+        selectedCities.push_back(newCityButton);
+    }
     
-    pop = makeChart( dBase.getCityId(city) , MPI_POPULATION_TOTAL , frame, minPop, maxPop );
-    popImm = makeChart( dBase.getCityId(city) , MPI_POPULATION_IMMIGRANTS, frame, minPop, maxPop );
+    for(int i = 0; i < dBase.getTotalCities(); i++){
+        cities.add( &selectedCities[i] );
+        selectedCities[i].addListener(this, &testApp::generateCharts);
+    }
+    cities.loadFromFile("settings.xml");
+    
+    bool b;
+    generateCharts( b );
+    
+    cam.rotate(160, 1.0, 0, 0);
+}
+
+void testApp::generateCharts(bool &_bool){
+    max = MAX(dBase.getMaxVal( MPI_POPULATION_TOTAL), dBase.getMaxVal( MPI_POPULATION_IMMIGRANTS) );
+    min = MIN(dBase.getMinVal( MPI_POPULATION_TOTAL), dBase.getMinVal( MPI_POPULATION_IMMIGRANTS) );
+    
+    charts.clear();
+    
+    //  Population
+    //
+    vector<ofPolyline> mpiValCharts;
+    for(int i = 0; i < selectedCities.size(); i++){
+        bool selected = selectedCities[i];
+        if ( selected == true ){
+            
+            ofPolyline chart = makeChart(i, MPI_POPULATION_TOTAL, frame, min, max);
+            
+            mpiValCharts.push_back(chart);
+        }
+    }
+    charts.push_back(mpiValCharts);
+    
+    //  Population
+    //
+    mpiValCharts.clear();
+    for(int i = 0; i < selectedCities.size(); i++){
+        if ( selectedCities[i] == true ){
+            
+            ofPolyline chart = makeChart(i, MPI_POPULATION_IMMIGRANTS, frame, min, max);
+            
+            mpiValCharts.push_back(chart);
+        }
+    }
+    charts.push_back(mpiValCharts);
+    
 }
 
 //--------------------------------------------------------------
@@ -57,7 +103,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofBackground(0);
+	ofBackgroundGradient(ofColor::gray, ofColor::black);
     
     cam.begin();
     ofPushMatrix();
@@ -69,10 +115,9 @@ void testApp::draw(){
     ofSetColor(255);
     ofLine( ofPoint(0,0), ofPoint(0,frame.height));
     ofLine( ofPoint(0,frame.height), ofPoint(frame.width,frame.height));
-    ofDrawBitmapString( city + " Population and Immigran Population",ofPoint(frame.width*0.5-200,-10) );
     
-    ofDrawBitmapString( ofToString(maxPop), ofPoint(-100,0));
-    ofDrawBitmapString( ofToString(minPop), ofPoint(-100,frame.height));
+    ofDrawBitmapString( ofToString(max), ofPoint(-100,0));
+    ofDrawBitmapString( ofToString(min), ofPoint(-100,frame.height));
     
     ofPushMatrix();
     ofTranslate( 0 , frame.height );
@@ -82,33 +127,67 @@ void testApp::draw(){
     ofDrawBitmapString( ofToString(dBase.getYear(2) ), ofPoint(0,-frame.width));
     ofPopMatrix();
     
-    // Draw population
-    //
-    ofFill();
-    ofSetColor(255,0,0,100);
-    ofBeginShape();
-    for(int i = 0; i < pop.size(); i++){
-        ofVertex(pop[i]);
-    }
-    ofEndShape();
+    int margin = 20;
     
-    //  Draw population of immigration
-    //
-    ofTranslate(0, 0, 1);
-    ofSetColor(0,0,255,100);
-    ofBeginShape();
-    for(int i = 0; i < popImm.size(); i++){
-        ofVertex(popImm[i]);
+    for (int v = 0; v < charts.size(); v++){
+        ofPushStyle();
+        ofColor color = ofColor(255,0,0,100);
+        color.setHue( (255/charts.size())*v );
+        ofSetColor(color);
+        ofFill();
+        
+        for (int c = 0; c < charts[v].size(); c++){
+            
+            ofPushMatrix();
+            
+            ofTranslate(0, 0, -margin*(charts[v].size()*0.5) );
+            ofTranslate(0, 0, margin*c);
+            
+            ofBeginShape();
+            for(int i = 0; i < charts[v][c].size(); i++){
+                ofVertex( charts[v][c][i] );
+            }
+            
+            ofEndShape();
+            ofPopMatrix();
+            
+        }
+        ofPopStyle();
     }
-    ofEndShape();
-    
     ofPopMatrix();
+    
+    
+    ofPushMatrix();
+    ofTranslate(-frame.width*0.5,-frame.height*0.5);
+    int counter = 0;
+    for (int i = 0; i < selectedCities.size(); i++){
+        bool selected = selectedCities[i];
+        
+        if ( selected ){
+            ofPushMatrix();
+            
+            ofSetColor(255);
+            ofTranslate(0, 0,-margin*(charts[0].size()*0.5) );
+            ofTranslate(0,0, margin*counter);
+            ofDrawBitmapString( dBase.getCity(i), ofPoint(frame.width,frame.height));
+            counter++;
+            
+            ofPopMatrix();
+        }
+        
+    }
+    ofPopMatrix();
+    
     cam.end();
+    
+    cities.draw();
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-	
+	if (key == 'f'){
+        ofToggleFullscreen();
+    }
 }
 
 //--------------------------------------------------------------

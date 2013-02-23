@@ -14,11 +14,16 @@ The Immigrant Success Index aims to add hard facts and aha's to the public debat
  
  You will two openFrameworks projects:
  
-### DataVisualizer
+### DataVisualizer Basic
 This is a simple example how to extract basic information from the dataBase. Then it's up to you to make great work with it.
 For reading the .csv files you will need to download [Paul's Vollmer ofxCsv oF addon](https://github.com/WrongEntertainment/ofxCsv)
 
 ![chart](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/chart.png)
+
+### DataVisualizer Comp
+This is a little more complex example that gives you an idea to how compear and explore on the database for patterns by making comparisons.
+
+![chart_comp](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/comp.png)
 
 ### GeoDataLocalizator
 This is another super simple example of how to put data on the map. Just a starting point to help you in context the data.
