@@ -16,16 +16,19 @@ The Immigrant Success Index aims to add hard facts and aha's to the public debat
  
 ### DataVisualizer
 This is a simple example how to extract basic information from the dataBase. Then it's up to you to make great work with it.
+For reading the .csv files you will need to download [Paul's Vollmer ofxCsv oF addon](https://github.com/WrongEntertainment/ofxCsv)
+
 ![chart](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/chart.png)
 
 ### GeoDataLocalizator
 This is another super simple example of how to put data on the map. Just a starting point to help you in context the data.
+For it we are using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
+
 ![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/map.png)
 
 ### Resources
 For this project we are using some brilliant code from other ones this are some of our sources 
 
 * [openFrameworks](http://www.openframeworks.cc/)
-* [Tom Carden, ModestMaps oF project](https://github.com/RandomEtc/modestmaps-of)
-* [Paul Vollmer, ofxCsv oF addon](https://github.com/WrongEntertainment/ofxCsv)
+* 
 
