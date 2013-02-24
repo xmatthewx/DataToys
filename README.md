@@ -25,7 +25,7 @@ This is a little more complex example that gives you an idea to how compear and 
 
 ![chart_comp](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/comp.png)
 
-### GeoDataLocalizator
+### GeoDataLocator Basic
 This is another super simple example of how to put data on the map. Just a starting point to help you in context the data.
 For it we are using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
 
