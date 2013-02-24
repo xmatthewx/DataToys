@@ -1,7 +1,6 @@
 #include "AbstractMapProvider.h"
 #include "TileLoader.h"
 #include "Map.h"
-#include "ofMemoryImage.h"
 
 void TileLoader::start(Coordinate _coord, AbstractMapProvider *_provider, Map *_map) {
 
@@ -24,9 +23,12 @@ void TileLoader::start(Coordinate _coord, AbstractMapProvider *_provider, Map *_
 
 void TileLoader::onThreadedStreamReceived(const void* pSender, StreamEventArgs & args_) {
 	
-	ofMemoryImage* threadedMemImage = new ofMemoryImage();
+	ofImage* threadedMemImage = new ofImage();
 	threadedMemImage->setUseTexture(false); // we can't use a texture with this one	
-	threadedMemImage->loadFromData(args_.buff,args_.bytesToRead);
+//	threadedMemImage->loadFromData(args_.buff,args_.bytesToRead);
+    ofBuffer buffer;
+    buffer.set((const char *)args_.buff, args_.bytesToRead);
+    threadedMemImage->loadImage(buffer);
 	// cleanup:
 	delete args_.buff;
 	

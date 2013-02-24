@@ -8,9 +8,7 @@
 #include "AbstractMapProvider.h"
 #include "Location.h"
 #include "Coordinate.h"
-#include "Point2d.h"
 #include "TileLoader.h"
-#include "ofMemoryImage.h"
 
 #define TILE_SIZE 256.0
 
@@ -42,11 +40,11 @@ public:
 	// loading tiles
 	map<Coordinate, TileLoader> pending;
 	// loaded tiles
-	map<Coordinate, ofMemoryImage*> images;
+	map<Coordinate, ofImage*> images;
 	// coords waiting to load
 	vector<Coordinate> queue;
 	// a list of the most recent MAX_IMAGES_TO_KEEP ofImages we've seen
-	vector<ofMemoryImage*> recentImages;
+	vector<ofImage*> recentImages;
 	// keep track of what we can see already:
 	set<Coordinate> visibleKeys;
 	
@@ -107,18 +105,17 @@ public:
 		pending.clear();
 	}*/
 	
-	Point2d coordinatePoint(Coordinate coord);
+	ofPoint coordinatePoint(Coordinate coord);
     
-	Coordinate pointCoordinate(Point2d point);
+	Coordinate pointCoordinate(ofPoint point);
 	
-	Point2d locationPoint(Location location);
+	ofPoint locationPoint(Location location);
     
     ofPoint getLocation(float _lat, float _long){
-        Point2d point = locationPoint( Location(_lat,_long));
-        return ofPoint(point.x,point.y);
+        return locationPoint( Location(_lat,_long) );
     }
 	
-	Location pointLocation(Point2d point);
+	Location pointLocation(ofPoint point);
 	
 	// TODO: pan by proportion of screen size, not by coordinate grid
 	void panUp();
@@ -143,7 +140,7 @@ public:
 	
 	void grabTile(Coordinate coord);
 	
-	void tileDone(Coordinate coord, ofMemoryImage *img);
+	void tileDone(Coordinate coord, ofImage *img);
 	
 	void processQueue();
 	

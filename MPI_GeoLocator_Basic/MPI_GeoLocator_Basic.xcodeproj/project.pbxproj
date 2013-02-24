@@ -10,8 +10,6 @@
 		7645652c8ac716fac449b65f84d45b38 /* TileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 153344354597e059d93bbd5ef51027bb /* TileLoader.cpp */; };
 		7700c4e1bda2c9235fdbdd6c6bb64ddf /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 748002d42eff28dde623af7a243a17a2 /* Map.cpp */; };
 		77699bf6bd81647f909a000909a73fc2 /* ofxCsv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = efece002fa2814dbd4904261d7d3e1a8 /* ofxCsv.cpp */; };
-		9b73c8c1000a08e0e24b764429c696cd /* ofMemoryImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e3fed5665ff98bb05b87bc28f98acabb /* ofMemoryImage.cpp */; };
-		9cba37d1053e275a48f6b34d0d8eb739 /* Transformation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0efbf0a2d18bb52a704b77751efc933a /* Transformation.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -35,7 +33,6 @@
 		c7b8415b628b474dfde0ab563b8b5bd3 /* MpiData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35699fe2dc1e344dba8a5b43d5d53878 /* MpiData.cpp */; };
 		d7ac5bf4f0028252370387b4ee1252fc /* LinearProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = b3941571e91dc95fd7f4e0881c46ea70 /* LinearProjection.cpp */; };
 		e384c7bb2cced61129537d5a3b8c182e /* SimpleWebScraper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6b138125ef8bbf2fa1c612772d7fb685 /* SimpleWebScraper.cpp */; };
-		faade90322d1af9dade80f1943c28eae /* MercatorProjection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = efa0ab115216bbd4d8b8ab66bfc06a93 /* MercatorProjection.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		0337a18771ed1289859c822e2435f956 /* SimpleWebScraper.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = SimpleWebScraper.h; path = src/modestmaps/SimpleWebScraper.h; sourceTree = SOURCE_ROOT; };
-		0efbf0a2d18bb52a704b77751efc933a /* Transformation.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Transformation.cpp; path = src/modestmaps/Transformation.cpp; sourceTree = SOURCE_ROOT; };
 		153344354597e059d93bbd5ef51027bb /* TileLoader.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = TileLoader.cpp; path = src/modestmaps/TileLoader.cpp; sourceTree = SOURCE_ROOT; };
 		35699fe2dc1e344dba8a5b43d5d53878 /* MpiData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = MpiData.cpp; path = src/MpiData.cpp; sourceTree = SOURCE_ROOT; };
 		3ae8dab56b43851d83c22bed7168483c /* Transformation.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Transformation.h; path = src/modestmaps/Transformation.h; sourceTree = SOURCE_ROOT; };
@@ -78,7 +74,6 @@
 		619ca34c6e1babd481cb27839e47ef06 /* MercatorProjection.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MercatorProjection.h; path = src/modestmaps/MercatorProjection.h; sourceTree = SOURCE_ROOT; };
 		6b138125ef8bbf2fa1c612772d7fb685 /* SimpleWebScraper.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = SimpleWebScraper.cpp; path = src/modestmaps/SimpleWebScraper.cpp; sourceTree = SOURCE_ROOT; };
 		6b229c14c530708589e751a8b571f2e2 /* MpiElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MpiElements.h; path = src/MpiElements.h; sourceTree = SOURCE_ROOT; };
-		6f1b3a985c99dddf9b8f4468ebdf3d2b /* Point2d.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Point2d.h; path = src/modestmaps/Point2d.h; sourceTree = SOURCE_ROOT; };
 		71da71b37006c7d04cb5224df79e4547 /* QueueSorter.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = QueueSorter.h; path = src/modestmaps/QueueSorter.h; sourceTree = SOURCE_ROOT; };
 		748002d42eff28dde623af7a243a17a2 /* Map.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Map.cpp; path = src/modestmaps/Map.cpp; sourceTree = SOURCE_ROOT; };
 		874753c97e151d33c1c17a1a30a82ee2 /* TileLoader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = TileLoader.h; path = src/modestmaps/TileLoader.h; sourceTree = SOURCE_ROOT; };
@@ -95,7 +90,7 @@
 		E45BE9770E8CC7DD009D7055 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		E45BE9790E8CC7DD009D7055 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = /System/Library/Frameworks/QuickTime.framework; sourceTree = "<absolute>"; };
-		E4B69B5B0A3A1756003C02F2 /* MPI_GeoDataLocalizatorDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPI_GeoDataLocalizatorDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B69B5B0A3A1756003C02F2 /* MPI_GeoLocator_BasicDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MPI_GeoLocator_BasicDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = testApp.cpp; path = src/testApp.cpp; sourceTree = SOURCE_ROOT; };
 		E4B69E1F0A3A1BDC003C02F2 /* testApp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = testApp.h; path = src/testApp.h; sourceTree = SOURCE_ROOT; };
@@ -113,9 +108,6 @@
 		c0fdb0eca7a876f3cd3682b4cb95b67e /* Map.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Map.h; path = src/modestmaps/Map.h; sourceTree = SOURCE_ROOT; };
 		ce069604e7dd33d23cb8c437458c6962 /* Coordinate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Coordinate.h; path = src/modestmaps/Coordinate.h; sourceTree = SOURCE_ROOT; };
 		e14e2e123fe55d6f89e5f9c250a17f9d /* LinearProjection.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = LinearProjection.h; path = src/modestmaps/LinearProjection.h; sourceTree = SOURCE_ROOT; };
-		e3fed5665ff98bb05b87bc28f98acabb /* ofMemoryImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofMemoryImage.cpp; path = src/modestmaps/ofMemoryImage.cpp; sourceTree = SOURCE_ROOT; };
-		ed30ccc3e048df7fd32e4dee4fabfc0f /* ofMemoryImage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofMemoryImage.h; path = src/modestmaps/ofMemoryImage.h; sourceTree = SOURCE_ROOT; };
-		efa0ab115216bbd4d8b8ab66bfc06a93 /* MercatorProjection.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = MercatorProjection.cpp; path = src/modestmaps/MercatorProjection.cpp; sourceTree = SOURCE_ROOT; };
 		efece002fa2814dbd4904261d7d3e1a8 /* ofxCsv.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCsv.cpp; path = ../../../addons/ofxCsv/src/ofxCsv.cpp; sourceTree = SOURCE_ROOT; };
 		f009bc58173476e5bbbd993fc4efc17e /* Location.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Location.h; path = src/modestmaps/Location.h; sourceTree = SOURCE_ROOT; };
 		ffd1fb9a6fd3be834742929c0b8da778 /* MpiData.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MpiData.h; path = src/MpiData.h; sourceTree = SOURCE_ROOT; };
@@ -169,18 +161,13 @@
 				f009bc58173476e5bbbd993fc4efc17e /* Location.h */,
 				748002d42eff28dde623af7a243a17a2 /* Map.cpp */,
 				c0fdb0eca7a876f3cd3682b4cb95b67e /* Map.h */,
-				efa0ab115216bbd4d8b8ab66bfc06a93 /* MercatorProjection.cpp */,
 				619ca34c6e1babd481cb27839e47ef06 /* MercatorProjection.h */,
-				e3fed5665ff98bb05b87bc28f98acabb /* ofMemoryImage.cpp */,
-				ed30ccc3e048df7fd32e4dee4fabfc0f /* ofMemoryImage.h */,
 				977f1150b989028463223877029cd311 /* OpenStreetMapProvider.h */,
-				6f1b3a985c99dddf9b8f4468ebdf3d2b /* Point2d.h */,
 				71da71b37006c7d04cb5224df79e4547 /* QueueSorter.h */,
 				6b138125ef8bbf2fa1c612772d7fb685 /* SimpleWebScraper.cpp */,
 				0337a18771ed1289859c822e2435f956 /* SimpleWebScraper.h */,
 				153344354597e059d93bbd5ef51027bb /* TileLoader.cpp */,
 				874753c97e151d33c1c17a1a30a82ee2 /* TileLoader.h */,
-				0efbf0a2d18bb52a704b77751efc933a /* Transformation.cpp */,
 				3ae8dab56b43851d83c22bed7168483c /* Transformation.h */,
 			);
 			name = modestmaps;
@@ -258,7 +245,7 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				E4B69B5B0A3A1756003C02F2 /* MPI_GeoDataLocalizatorDebug.app */,
+				E4B69B5B0A3A1756003C02F2 /* MPI_GeoLocator_BasicDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -288,9 +275,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4B69B5A0A3A1756003C02F2 /* MPI_GeoDataLocalizator */ = {
+		E4B69B5A0A3A1756003C02F2 /* MPI_GeoLocator_Basic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "MPI_GeoDataLocalizator" */;
+			buildConfigurationList = E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "MPI_GeoLocator_Basic" */;
 			buildPhases = (
 				E4B69B580A3A1756003C02F2 /* Sources */,
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
@@ -302,9 +289,9 @@
 			dependencies = (
 				E4EEB9AC138B136A00A80321 /* PBXTargetDependency */,
 			);
-			name = MPI_GeoDataLocalizator;
+			name = MPI_GeoLocator_Basic;
 			productName = myOFApp;
-			productReference = E4B69B5B0A3A1756003C02F2 /* MPI_GeoDataLocalizatorDebug.app */;
+			productReference = E4B69B5B0A3A1756003C02F2 /* MPI_GeoLocator_BasicDebug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -312,7 +299,7 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "MPI_GeoDataLocalizator" */;
+			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "MPI_GeoLocator_Basic" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -333,7 +320,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				E4B69B5A0A3A1756003C02F2 /* MPI_GeoDataLocalizator */,
+				E4B69B5A0A3A1756003C02F2 /* MPI_GeoLocator_Basic */,
 			);
 		};
 /* End PBXProject section */
@@ -373,11 +360,8 @@
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				d7ac5bf4f0028252370387b4ee1252fc /* LinearProjection.cpp in Sources */,
 				7700c4e1bda2c9235fdbdd6c6bb64ddf /* Map.cpp in Sources */,
-				faade90322d1af9dade80f1943c28eae /* MercatorProjection.cpp in Sources */,
-				9b73c8c1000a08e0e24b764429c696cd /* ofMemoryImage.cpp in Sources */,
 				e384c7bb2cced61129537d5a3b8c182e /* SimpleWebScraper.cpp in Sources */,
 				7645652c8ac716fac449b65f84d45b38 /* TileLoader.cpp in Sources */,
-				9cba37d1053e275a48f6b34d0d8eb739 /* Transformation.cpp in Sources */,
 				c7b8415b628b474dfde0ab563b8b5bd3 /* MpiData.cpp in Sources */,
 				77699bf6bd81647f909a000909a73fc2 /* ofxCsv.cpp in Sources */,
 			);
@@ -643,7 +627,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "MPI_GeoDataLocalizator" */ = {
+		E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "MPI_GeoLocator_Basic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B4E0A3A1720003C02F2 /* Debug */,
@@ -652,7 +636,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "MPI_GeoDataLocalizator" */ = {
+		E4B69B5F0A3A1757003C02F2 /* Build configuration list for PBXNativeTarget "MPI_GeoLocator_Basic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4B69B600A3A1757003C02F2 /* Debug */,

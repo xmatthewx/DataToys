@@ -22,8 +22,8 @@ void Map::draw() {
 	
 	// these are the top left and bottom right tile coordinates
 	// we'll be loading everything in between:
-	Coordinate startCoord = pointCoordinate(Point2d(0,0)).zoomTo(baseZoom).container();
-	Coordinate endCoord = pointCoordinate(Point2d(width,height)).zoomTo(baseZoom).container().right().down();
+	Coordinate startCoord = pointCoordinate(ofPoint(0,0)).zoomTo(baseZoom).container();
+	Coordinate endCoord = pointCoordinate(ofPoint(width,height)).zoomTo(baseZoom).container().right().down();
 	
 	// find start and end columns
 	int minCol = startCoord.column;
@@ -122,17 +122,18 @@ void Map::draw() {
 			
 			if (images.count(coord) > 0) {
 				//cout << "rendering: " << coord;				
-				ofMemoryImage *tile = images[coord];
+				ofImage *tile = images[coord];
 				// TODO: must be a cleaner C++ way to do this?
 				// we want this image to be at the end of recentImages, if it's already there we'll remove it and then add it again
-				vector<ofMemoryImage*>::iterator result = find(recentImages.begin(), recentImages.end(), tile);
+				vector<ofImage*>::iterator result = find(recentImages.begin(), recentImages.end(), tile);
 				if (result != recentImages.end()) {
 					recentImages.erase(result);
 				}
 				else {
 					// if it's not in recent images it must be brand new?
 					tile->setUseTexture(true);
-					tile->initTex();
+//					tile->initTex();
+                    tile->update();
 				}
 				tile->draw(coord.column*TILE_SIZE,coord.row*TILE_SIZE,TILE_SIZE,TILE_SIZE);
 				numDrawnImages++;
@@ -173,11 +174,11 @@ void Map::draw() {
 		//images.values().retainAll(recentImages);
 		// TODO: re-think the stl collections used so that a simpler retainAll equivalent is available
 		// now look in the images map and if the value is no longer in recent images then get rid of it
-		map<Coordinate,ofMemoryImage*>::iterator iter = images.begin();
-		map<Coordinate,ofMemoryImage*>::iterator endIter = images.end();
+		map<Coordinate,ofImage*>::iterator iter = images.begin();
+		map<Coordinate,ofImage*>::iterator endIter = images.end();
 		for (; iter != endIter;) {
-			ofMemoryImage* tile = iter->second;
-			vector<ofMemoryImage*>::iterator result = find(recentImages.begin(), recentImages.end(), tile);
+			ofImage* tile = iter->second;
+			vector<ofImage*>::iterator result = find(recentImages.begin(), recentImages.end(), tile);
 			if (result == recentImages.end()) {
 				images.erase(iter++);
 				delete tile;
@@ -312,7 +313,7 @@ void Map::zoomOut() {
  pending.clear();
  }*/
 
-Point2d Map::coordinatePoint(Coordinate coord)
+ofPoint Map::coordinatePoint(Coordinate coord)
 {
 	/* Return an x, y point on the map image for a given coordinate. */
 	
@@ -323,14 +324,14 @@ Point2d Map::coordinatePoint(Coordinate coord)
 	}
 	
 	// distance from the center of the map
-	Point2d point = Point2d(width/2, height/2);
+	ofPoint point = ofPoint(width/2, height/2);
 	point.x += TILE_SIZE * (coord.column - center.column);
 	point.y += TILE_SIZE * (coord.row - center.row);
 	
 	return point;
 }
 
-Coordinate Map::pointCoordinate(Point2d point) {
+Coordinate Map::pointCoordinate(ofPoint point) {
 	/* Return a coordinate on the map image for a given x, y point. */		
 	// new point coordinate reflecting distance from map center, in tile widths
 	Coordinate coord = getCenterCoordinate();
@@ -339,11 +340,11 @@ Coordinate Map::pointCoordinate(Point2d point) {
 	return coord;
 }
 
-Point2d Map::locationPoint(Location location) {
+ofPoint Map::locationPoint(Location location) {
 	return coordinatePoint(provider->locationCoordinate(location));
 }
 
-Location Map::pointLocation(Point2d point) {
+Location Map::pointLocation(ofPoint point) {
 	return provider->coordinateLocation(pointCoordinate(point));
 }
 
@@ -402,7 +403,7 @@ void Map::grabTile(Coordinate coord) {
 
 // TODO: there could be issues when this is called from within a thread
 // probably needs synchronizing on images / pending / queue
-void Map::tileDone(Coordinate coord, ofMemoryImage *img) {
+void Map::tileDone(Coordinate coord, ofImage *img) {
 	// check if we're still waiting for this (new provider clears pending)
 	// also check if we got something
 	if (pending.count(coord) > 0 && img != NULL) {

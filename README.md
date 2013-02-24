@@ -30,10 +30,3 @@ This is another super simple example of how to put data on the map. Just a start
 For it we are using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
 
 ![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/map.png)
-
-### Resources
-For this project we are using some brilliant code from other ones this are some of our sources 
-
-* [openFrameworks](http://www.openframeworks.cc/)
-* 
-

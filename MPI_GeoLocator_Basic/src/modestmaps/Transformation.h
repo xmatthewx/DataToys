@@ -1,7 +1,7 @@
 #ifndef TRANSFORMATION
 #define TRANSFORMATION
 
-class Point2d;
+#include "ofMain.h"
 
 class Transformation {
 	
@@ -15,9 +15,13 @@ public:
 	
 	Transformation(const Transformation &t) : ax(t.ax), bx(t.bx), cx(t.cx), ay(t.ay), by(t.by), cy(t.cy) {}
 	
-	Point2d transform(Point2d point);
-	
-	Point2d untransform(Point2d point);
+    ofPoint transform(ofPoint point) {
+        return ofPoint(ax*point.x + bx*point.y + cx, ay*point.x + by*point.y + cy);
+    }
+    
+    ofPoint untransform(ofPoint point) {
+        return ofPoint((point.x*by - point.y*bx - cx*by + cy*bx) / (ax*by - ay*bx), (point.x*ay - point.y*ax - cx*ay + cy*ax) / (bx*ay - by*ax));
+    }
 	
 };
 
