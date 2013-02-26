@@ -26,7 +26,13 @@ void testApp::setup(){
     
     angle = 0;
     distance = 0;
-    apperture = 45;
+    apperture = 30;
+    
+    ofPoint point = map.locationPoint(myLoc);
+    areaZone.clear();
+    areaZone.addVertex(point);
+    areaZone.arc(point, distance, distance, angle-apperture*0.5, angle+apperture*0.5, true,60);
+    areaZone.addVertex(point);
 }
 
 //--------------------------------------------------------------
@@ -58,16 +64,17 @@ void testApp::draw(){
     for (int i = 0; i < citiesPos.size(); i++){
         
         if (areaZone.inside( citiesPos[i] )){
+            ofSetColor(0,0,200,200);
+            ofDrawBitmapString(dBase.getCity(i), citiesPos[i] + ofPoint(10,5));
+
             ofFill();
         } else {
             ofNoFill();
         }
         
-        ofSetColor(255,0,0);
+        ofSetColor(255,0,0,200);
         ofCircle(citiesPos[i], map.getZoom() * 2);
         
-        //        ofSetColor(0,0,200);
-        //        ofDrawBitmapString(dBase.getCity(i), citiesPos[i] + ofPoint(10,5));
     }
     
     ofPopStyle();
