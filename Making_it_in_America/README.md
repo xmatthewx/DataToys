@@ -139,6 +139,10 @@ It's important to know that if you are getting a ```-1``` it's because the infor
     	float   getLatitud( int _cityId );		// return the lat
     	float   getLongitud( int _cityId );	// return the longitud
     	mpiCityCategory getCityCategory( int _cityId); //return the city category
+    	int     getCityIdMaxVal( mpiNumValue _mpiPctValue , int _yearId = -1);
+    	int     getCityIdMinVal( mpiNumValue _mpiPctValue , int _yearId = -1);
+    	int     getCityIdMaxVal( mpiPctValue _mpiPctValue , int _yearId = -1);
+    	int     getCityIdMinVal( mpiPctValue _mpiPctValue , int _yearId = -1);
     	vector<mpiCity> getCitiesBy( mpiCityCategory _category );
     	vector<mpiCity> getCitiesBy( string _state ); 
     
@@ -147,7 +151,7 @@ It's important to know that if you are getting a ```-1``` it's because the infor
     	float   getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId = -1);
     	int     getNumVal( mpiPctValue _mpiNumValue, int _cityId , int _yearId = -1);
     	int     getNumVal( mpiNumValue _mpiNumValue, int _cityId , int _yearId = -1);
-    
+        
     	float   getMinPctVal( mpiPctValue _mpiNumValue, int _cityId = -1);
     	float   getMaxPctVal( mpiPctValue _mpiNumValue, int _cityId = -1);
     	int     getMinNumVal( mpiPctValue _mpiNumValue, int _cityId = -1);
@@ -175,10 +179,51 @@ In this case the number is converted from percentage to total numbers. ( ***Note
 
 Other important thing to realize of this example is the absence of the year ID. In this particular case means that if the year is not provided it will return the value of the last register year. Also when you are asking for maximum and minimum values you don't need to specify the city. In those cases it will search for all the max and min values on all the years and all the cities of the dataBase
 
-### Installing and using the MPI Data Base
+### Installing the MPI Data Base
 
 
+
+### Using the MPI Data Base
+First you need to load the .csv files
+
+    	dBase.loadCities( "cities.csv");
+    	dBase.loadYear(2000, "2000.csv");
+    	dBase.loadYear(2010, "2010.csv");
+    	dBase.loadYear(2005, "2005.csv");
+
+After doing that you can start making request like for example:
+
+*	Asking for the first and last registered years on the data base
+
+		cout << "The first year is: " << dBase.getFirstYear() << endl;
+		cout << "The last year is: " << dBase.getLastYear() << endl;
+    
+*	Asking for the total population of Boston
+
+		cout << "The population of Boston on 2010 was " << dBase.getNumVal(MPI_NUM_POPULATION, dBase.getCityId("Boston"), dBase.getYearId(2010)) << endl;
+    
+    
+* Conversions between percentages and total amount of peopel
+
+		cout << "The percentage of the creative class in Miami is %" << dBase.getPctVal(MPI_PCT_CREATIVE_CLASS, dBase.getCityId("Miami") ) << endl;
+    	cout << "Witch means the total of " << dBase.getNumVal(MPI_PCT_CREATIVE_CLASS, dBase.getCityId("Miami") ) << " individuals" << endl;
+    
+* Request for list of cities
+
+		vector<mpiCity> activeCities;
+    	activeCities = dBase.getCitiesBy(MPI_CITY_ACTIVE_RECRUITING);
+    	cout << "The cities that actively recruit more are: ";
+    	for (int i = 0; i < activeCities.size(); i++) {
+        	cout << activeCities[i].name << ", ";
+    	}
+    	cout << endl;
+    
+* search for cities with maximum or minimum values 
+
+		cout << "The city with highiest number of immigrants is " << dBase.getCity( dBase.getCityIdMaxVal(MPI_NUM_IMMIGRANTS ) ) << endl;
+    	cout << "The city with highiest unemployment percent is " << dBase.getCity( dBase.getCityIdMaxVal(MPI_PCT_UNEMPLOYMENT) ) << endl;
  
+
 
 ### Examples
 

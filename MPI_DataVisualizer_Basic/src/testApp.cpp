@@ -32,7 +32,29 @@ void testApp::setup(){
     //
     cout << "The population of Boston on 2010 was " << dBase.getNumVal(MPI_NUM_POPULATION, dBase.getCityId("Boston"), dBase.getYearId(2010)) << endl;
     
-    //  MAKING A BASIC CHART
+    
+    //  Convertions
+    //
+    cout << "The percentage of the creative class in Miami is %" << dBase.getPctVal(MPI_PCT_CREATIVE_CLASS, dBase.getCityId("Miami") ) << endl;
+    cout << "Witch means the total of " << dBase.getNumVal(MPI_PCT_CREATIVE_CLASS, dBase.getCityId("Miami") ) << " individuals" << endl;
+    
+    //  Geting a list of cities
+    //
+    vector<mpiCity> activeCities;
+    activeCities = dBase.getCitiesBy(MPI_CITY_ACTIVE_RECRUITING);
+    cout << "The cities that actively recruit more are: ";
+    for (int i = 0; i < activeCities.size(); i++) {
+        cout << activeCities[i].name << ", ";
+    }
+    cout << endl;
+    
+    //  Searching for the maximum value
+    //
+    cout << "The city with highiest number of immigrants is " << dBase.getCity( dBase.getCityIdMaxVal(MPI_NUM_IMMIGRANTS ) ) << endl;
+    cout << "The city with highiest unemployment percent is " << dBase.getCity( dBase.getCityIdMaxVal(MPI_PCT_UNEMPLOYMENT) ) << endl;
+    
+    
+    //  GRAPHICS: MAKING A BASIC CHART
     //  --------------------------------------
     //
     
