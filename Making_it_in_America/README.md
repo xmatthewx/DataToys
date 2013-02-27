@@ -181,6 +181,40 @@ Other important thing to realize of this example is the absence of the year ID. 
 
 ### Installing the MPI Data Base
 
+You need to copy the [.csv files](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/data) ( [```cities.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/cities.csv), [```2000.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2000.csv), [```2005.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2005.csv) and [```2010.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2010.csv)) to the ```bin/data``` folder on your openFrameworks project.
+
+Then you also need to copy the [```.h``` and ```.cpp``` files in the src folder](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/src) ( [```MpiElements.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiElements.h), [```MpiData.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.h) and [```MpiData.cpp```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.cpp) ) to your ```src/``` folder on your openFrameworks project. 
+
+In order to use the dataBase you need to declare a ```MpiData``` object on your ```testApp.h``` together with the ```#include ``` call to the ```MpiData.h``` header file.
+
+That should look like:
+
+	#pragma once
+
+	#include "ofMain.h"
+	#include "MpiData.h"
+
+	class testApp : public ofBaseApp{
+	public:
+    	void setup();
+    	void update();
+    	void draw();
+
+    	void keyPressed  (int key);
+    	void keyReleased(int key);
+    	void mouseMoved(int x, int y );
+    	void mouseDragged(int x, int y, int button);
+    	void mousePressed(int x, int y, int button);
+    	void mouseReleased(int x, int y, int button);
+    	void windowResized(int w, int h);
+    	void dragEvent(ofDragInfo dragInfo);
+    	void gotMessage(ofMessage msg);
+    
+    	MpiData     dBase;
+ 
+	};
+  
+After doing this you are ready to load and use the data base.
 
 
 ### Using the MPI Data Base
@@ -224,8 +258,8 @@ After doing that you can start making request like for example:
     	cout << "The city with highiest unemployment percent is " << dBase.getCity( dBase.getCityIdMaxVal(MPI_PCT_UNEMPLOYMENT) ) << endl;
  
 
-
 ### Examples
+For exploring more features and possibilities take a look to following examples 
 
 #### DataVisualizer Basic
 This is a simple example how to extract basic information from the dataBase. Then it's up to you to make great work with it.
