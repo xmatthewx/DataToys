@@ -7,6 +7,8 @@ void testApp::setup(){
     ofSetVerticalSync(true);
     ofSetDrawBitmapMode(OF_BITMAPMODE_SIMPLE );
     ofEnableSmoothing();
+    ofToggleFullscreen();
+    
     cam.rotate(180, 1.0, 0, 0);
     
     //  SETUP of the DABA BASE
@@ -136,7 +138,9 @@ void testApp::draw(){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-	
+	if (key == 'f'){
+        ofToggleFullscreen();
+    }
 }
 
 //--------------------------------------------------------------

@@ -5,4 +5,4 @@ Froebel’s Gifts introduced new forms of learning; Data Toys playfully present 
 
 ## Projects
 
-* ### [Making it in America: *The Immigrant Success Index*](https://github.com/patriciogonzalezvivo/DataToys/tree/master/MPI_DataBase) 
+* [Making it in America: *The Immigrant Success Index*](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/README.md)
