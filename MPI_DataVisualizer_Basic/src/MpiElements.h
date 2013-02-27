@@ -8,6 +8,12 @@
 #ifndef MPI_DataVisualizer_MpiElements_h
 #define MPI_DataVisualizer_MpiElements_h
 
+#include <iostream.h>
+#include <string.h>
+#include <vector.h>
+
+using namespace std;
+
 enum mpiCityCategory{
     //  As you can see this dataBase don't cover all the cities on the US. MPI choose 25 cities following the last 3 criterias:
     //

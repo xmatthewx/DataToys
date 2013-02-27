@@ -9,9 +9,9 @@ void testApp::setup(){
     ofSetFullscreen(true);
     
     dBase.loadCities("cities.csv");
-    dBase.loadSample(2000, "2000.csv");
-    dBase.loadSample(2005, "2005.csv");
-    dBase.loadSample(2010, "2010.csv");
+    dBase.loadYear(2000, "2000.csv");
+    dBase.loadYear(2005, "2005.csv");
+    dBase.loadYear(2010, "2010.csv");
     
     map.setup(new OpenStreetMapProvider(), (double)ofGetWidth(), (double)ofGetHeight());
     map.setCenter(Location(40.257,-98.7689));
@@ -41,15 +41,27 @@ void testApp::draw(){
     
     for (int i = 0; i < citiesPos.size(); i++){
         
-        ofSetColor(0,0,200,200);
-        ofDrawBitmapString(dBase.getCity(i), citiesPos[i] + ofPoint(10,5));
-
-        ofSetColor(255,0,0,200);
+        ofNoFill();
+        ofSetColor(150,0,0,200);
         ofCircle(citiesPos[i], map.getZoom() * 2);
+        ofSetColor(200,0,0,200);
+        ofCircle(citiesPos[i], map.getZoom());
+        
+        ofFill();
+        ofSetColor(255,0,0,200);
+        ofCircle(citiesPos[i], 2);
+        
+        ofSetColor(50,200);
+        ofDrawBitmapString(dBase.getCity(i), citiesPos[i] + ofPoint(map.getZoom() * 2 + 5, map.getZoom() * 2));
         
     }
     
+    ofSetColor(0);
+    ofDrawBitmapString("Zoom width +/-", 25,25);
+    
     ofPopStyle();
+    
+    
 }
 
 //--------------------------------------------------------------

@@ -67,10 +67,8 @@ void MpiData::loadCities( string _cvsFile ){
     }
 }
 
-void MpiData::loadSample( int _year, string _cvsFile ){
+void MpiData::loadYear( int _year, string _cvsFile ){
 
-    
-    
     // Declare a File Stream.
     ifstream fileIn;
 	
@@ -149,11 +147,16 @@ void MpiData::loadSample( int _year, string _cvsFile ){
             }
         }
         
-        //  TODO:
-        //          - Check between witch years need to be inserted
+        //  Check between witch years need to be inserted ( sort )
         //
-        years.push_back(_year);
-        samples.push_back(newYearSample);
+        int offSet = 0;
+        for (int i = 0; i < years.size(); i++){
+            if ( _year > years[i] )
+                offSet = i+1;
+        }
+        
+        years.insert(years.begin()+offSet, _year);
+        samples.insert(samples.begin()+offSet,newYearSample);
         
     }
 }
@@ -183,6 +186,10 @@ int MpiData::getYear( int _yearId){
     return years[_yearId];
 }
 
+vector<int> MpiData::getYears(){
+    return years;
+}
+
 int MpiData::getFirstYear(){
     return years[0];
 }
@@ -201,27 +208,82 @@ int MpiData::getCityId( string _city ){
 }
 
 string MpiData::getCity( int _cityId ){
-    return cities[_cityId].name;
+    if (( _cityId >= 0 ) && (_cityId < cities.size() ))
+        return cities[_cityId].name;
+    else
+        return "FAIL";
 }
 
 string MpiData::getState( int _cityId ){
-    return cities[_cityId].state;
+    if (( _cityId >= 0 ) && (_cityId < cities.size() ))
+        return cities[_cityId].state;
+    else
+        return "FAIL";
 }
 
 float MpiData::getLatitud( int _cityId ){
-    return cities[_cityId].lat;
+    if (( _cityId >= 0 ) && (_cityId < cities.size() ))
+        return cities[_cityId].lat;
+    else
+        return -1;
 }
 
 float MpiData::getLongitud( int _cityId ){
-    return cities[_cityId].lon;
+    if (( _cityId >= 0 ) && (_cityId < cities.size() ))
+        return cities[_cityId].lon;
+    else
+        return -1;
+}
+
+mpiCity MpiData::getCityInfo( int _cityId){
+    if (( _cityId >= 0 ) && (_cityId < cities.size() ))
+        return cities[_cityId];
+    else
+        return mpiCity();
+}
+
+mpiCityCategory MpiData::getCityCategory( int _cityId ){
+    if (( _cityId >= 0 ) && (_cityId < cities.size() ))
+        return cities[_cityId].category;
+    else
+        return mpiCityCategory();
+}
+
+vector<mpiCity> MpiData::getCitiesBy( mpiCityCategory _category ){
+    vector<mpiCity> rta;
+    
+    for (int i = 0; i < cities.size(); i++){
+        if ( cities[i].category == _category )
+            rta.push_back(cities[i]);
+    }
+    
+    return rta;
+}
+
+vector<mpiCity> MpiData::getCitiesBy( string _state ){
+    vector<mpiCity> rta;
+    
+    for (int i = 0; i < cities.size(); i++){
+        if ( cities[i].state == _state )
+            rta.push_back(cities[i]);
+    }
+    
+    return rta;
 }
 
 float MpiData::getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId ){
+    
+    //  Can't accept non legal cityId
+    //
+    if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+        return -1;
     
     //  If year not provide let's return the last censed year
     //
     if ( _yearId == -1 ){
         _yearId = years.size()-1;
+    } else if (( _yearId < -1 ) || (_yearId >= years.size())){
+        return -1;
     }
     
     return  samples[_yearId][_cityId].getPctValue(_mpiPctValue);
@@ -229,20 +291,35 @@ float MpiData::getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId ){
 
 int MpiData::getNumVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId){
     
+    //  Can't accept non legal cityId
+    //
+    if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+        return -1;
+
     //  If year not provide let's return the last censed year
     //
     if ( _yearId == -1 ){
         _yearId = years.size()-1;
+    } else if (( _yearId < -1 ) || (_yearId >= years.size())){
+        return -1;
     }
     
     return  samples[_yearId][_cityId].getNumValue(_mpiPctValue);
 }
 
 int MpiData::getNumVal( mpiNumValue _mpiNumValue, int _cityId , int _yearId){
+    
+    //  Can't accept non legal cityId
+    //
+    if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+        return -1;
+
     //  If year not provide let's return the last censed year
     //
     if ( _yearId == -1 ){
         _yearId = years.size()-1;
+    } else if (( _yearId < -1 ) || (_yearId >= years.size())){
+        return -1;
     }
     
     return  samples[_yearId][_cityId].getNumValue(_mpiNumValue);
@@ -265,6 +342,11 @@ float MpiData::getMinPctVal( mpiPctValue _mpiPctValue, int _cityId ){
         
         return minVal;
     } else {
+        
+        //  Can't accept non legal cityId
+        //
+        if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+            return -1;
         
         for (int i = 0; i < years.size(); i++) {
             float val = samples[i][_cityId].getPctValue( _mpiPctValue );
@@ -296,6 +378,11 @@ float MpiData::getMaxPctVal( mpiPctValue _mpiPctValue, int _cityId ){
         
     } else {
         
+        //  Can't accept non legal cityId
+        //
+        if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+            return -1;
+        
         for (int i = 0; i < years.size(); i++) {
             float val = samples[i][_cityId].getPctValue( _mpiPctValue );
             
@@ -323,6 +410,11 @@ int MpiData::getMinNumVal( mpiPctValue _mpiPctValue, int _cityId ){
         
         return minVal;
     } else {
+        
+        //  Can't accept non legal cityId
+        //
+        if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+            return -1;
         
         for (int i = 0; i < years.size(); i++) {
             float val = samples[i][_cityId].getNumValue( _mpiPctValue );
@@ -353,6 +445,11 @@ int MpiData::getMaxNumVal( mpiPctValue _mpiPctValue, int _cityId ){
         
     } else {
         
+        //  Can't accept non legal cityId
+        //
+        if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+            return -1;
+        
         for (int i = 0; i < years.size(); i++) {
             float val = samples[i][_cityId].getNumValue( _mpiPctValue );
             
@@ -380,6 +477,11 @@ int MpiData::getMinNumVal( mpiNumValue _mpiNumValue, int _cityId ){
         
         return minVal;
     } else {
+        
+        //  Can't accept non legal cityId
+        //
+        if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+            return -1;
         
         for (int i = 0; i < years.size(); i++) {
             float val = samples[i][_cityId].getNumValue( _mpiNumValue );
@@ -409,6 +511,11 @@ int MpiData::getMaxNumVal( mpiNumValue _mpiNumValue, int _cityId ){
         return maxVal;
         
     } else {
+        
+        //  Can't accept non legal cityId
+        //
+        if (( _cityId < 0 ) || (_cityId >= cities.size() ))
+            return -1;
         
         for (int i = 0; i < years.size(); i++) {
             float val = samples[i][_cityId].getNumValue( _mpiNumValue );

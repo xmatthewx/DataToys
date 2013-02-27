@@ -7,24 +7,50 @@ void testApp::setup(){
     ofSetVerticalSync(true);
     ofSetDrawBitmapMode(OF_BITMAPMODE_SIMPLE );
     ofEnableSmoothing();
+    cam.rotate(180, 1.0, 0, 0);
     
-    dBase.loadCities("cities.csv");
-    dBase.loadSample(2000, "2000.csv");
-    dBase.loadSample(2005, "2005.csv");
-    dBase.loadSample(2010, "2010.csv");
+    //  SETUP of the DABA BASE
+    //  --------------------------------------
+    //
+    dBase.loadCities( "cities.csv");
+    dBase.loadYear(2000, "2000.csv");
+    dBase.loadYear(2010, "2010.csv");
+    dBase.loadYear(2005, "2005.csv");
     
-//    cout << dBase.getSample( dBase.getYearId(2000), dBase.getCityId("New York") ).pop << endl;
+    //  EXAMPLES
+    //  --------------------------------------
+    //
     
+    //  Asking for the first and last registered years on the data base
+    //
+    cout << "The first year is: " << dBase.getFirstYear() << endl;
+    cout << "The last year is: " << dBase.getLastYear() << endl;
+    
+    //  Asking for the total population of Boston
+    //
+    cout << "The population of Boston on 2010 was " << dBase.getNumVal(MPI_NUM_POPULATION, dBase.getCityId("Boston"), dBase.getYearId(2010)) << endl;
+    
+    //  MAKING A BASIC CHART
+    //  --------------------------------------
+    //
+    
+    //  Chart position
+    //
     frame.set(0,0,600,100);
+    city = "Detroit";
     
-    city = "New York";
-    maxPop = MAX(dBase.getMaxNumVal( MPI_NUM_POPULATION), dBase.getMaxNumVal( MPI_NUM_IMMIGRANTS ) );
-    minPop = MIN(dBase.getMinNumVal( MPI_NUM_POPULATION), dBase.getMinNumVal( MPI_NUM_IMMIGRANTS ) );
+    //  Asking for the max values of population and number of immigrants in a particular city
+    //
+    maxPop = MAX(dBase.getMaxNumVal( MPI_NUM_POPULATION, dBase.getCityId(city)), dBase.getMaxNumVal( MPI_NUM_IMMIGRANTS, dBase.getCityId(city) ) );
     
+    //  Asking for the min values of population and number of immigrants in all cities
+    //
+    minPop = MIN(dBase.getMinNumVal( MPI_NUM_POPULATION ), dBase.getMinNumVal( MPI_NUM_IMMIGRANTS ) );
+    
+    //  Making a chard with the population of a city during this 10 years
+    //
     pop = makeChart( dBase.getCityId(city) , MPI_NUM_POPULATION , frame, minPop, maxPop );
     popImm = makeChart( dBase.getCityId(city) , MPI_NUM_IMMIGRANTS , frame, minPop, maxPop );
-    
-    cam.rotate(160, 1.0, 0, 0);
 }
 
 //--------------------------------------------------------------

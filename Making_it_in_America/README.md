@@ -119,9 +119,69 @@ For a more information about this values please read this [overview of the data]
         
 It's important to know that if you are getting a ```-1``` it's because the information can't be provided. For example if you want to get the TOTAL NUMBER of immigrant with no deegree it can't be done. Looking above you will see that's because that percentage it of the population over 25+ witch we don't have. Those 6 options with the same characteristic are the only one that can be satisfy correctly. 
 
-### DataBase Motor
+### DataBase Motor 
+
+* ```MpiData```: This object represent the core of this API. It's an C++ object ready for loading the .csv and process it information. Once this files are loads you can make request asking for specific information. The methods are
 
 
+		//		Loading of the information
+		//
+		void	loadCities( string _cvsFile );
+		void    loadYear( int _year, string _cvsFile );
+    
+    	//      YEAR
+    	//
+    	int     getTotalYears();				// return the total number of loaded years
+    	int     getYearId( int _year );			// return the year ID of a year i.e. "2000"
+    	int     getYear( int _yearId);			// return the year number of a year ID
+    	int     getFirstYear();					// return the ID 
+    	int     getLastYear();
+    
+    	//      CITY
+    	//
+    	int     getTotalCities();				// return the total number of cities
+    	int     getCityId( string _city );		// giving a city name it return the ID
+    	mpiCity getCityInfo( int _cityId);  // giving a city ID return a mpiCity
+    	string  getCity( int _cityId );			// return the name of the city
+    	string  getState( int _cityId );		// return the state of a city
+    	float   getLatitud( int _cityId );		// return the lat
+    	float   getLongitud( int _cityId );	// return the longitud
+    	mpiCityCategory getCityCategory( int _cityId); //return the city category
+    	vector<mpiCity> getCitiesBy( mpiCityCategory _category );
+    	vector<mpiCity> getCitiesBy( string _state ); 
+    
+    	//      VALUES
+    	//
+    	float   getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId = -1);
+    	int     getNumVal( mpiPctValue _mpiNumValue, int _cityId , int _yearId = -1);
+    	int     getNumVal( mpiNumValue _mpiNumValue, int _cityId , int _yearId = -1);
+    
+    	float   getMinPctVal( mpiPctValue _mpiNumValue, int _cityId = -1);
+    	float   getMaxPctVal( mpiPctValue _mpiNumValue, int _cityId = -1);
+    	int     getMinNumVal( mpiPctValue _mpiNumValue, int _cityId = -1);
+    	int     getMaxNumVal( mpiPctValue _mpiNumValue, int _cityId = -1);
+    	int     getMinNumVal( mpiNumValue _mpiNumValue, int _cityId = -1);
+    	int     getMaxNumVal( mpiNumValue _mpiNumValue, int _cityId = -1);
+    
+    	//      SAMPLES
+    	//
+    	int                     getTotalSamples();
+    	vector<mpiCitySample>&  getSamples( int _yearId );
+    	mpiCitySample&          getSample( int _yearId, int _cityId );
+
+It's important to note that in order to make a proper request you need to provide ID's numbers of cities or years. That means that first you need to request the ID of the city or the year you want to get. 
+
+If you look to the method to request values you will see that is difference between asking for a total number (```…Num…```)rather dan a percentage (```…Pct…```). In the first case you get an integer number (```int```) with the total amount of people and in the second case you receive a floating point (```float```) percentage of the population. There is a third case where you can ask for a total number of a percentage. I.E.
+
+	int     getNumVal( mpiPctValue _mpiNumValue, int _cityId , int _yearId = -1);
+	
+That could be:
+
+	int		unEmploy = dBase.getNumVal( MPI_PCT_UNEMPLOYMENT );
+
+In this case the number is converted from percentage to total numbers. ( ***Note:*** *that you can not do this with the six percentages related to education because they are based just on the population over 25+*
+
+Other important thing to realize of this example is the absence of the year ID. In this particular case means that if the year is not provided it will return the value of the last register year. Also when you are asking for maximum and minimum values you don't need to specify the city. In those cases it will search for all the max and min values on all the years and all the cities of the dataBase
 
 ### Installing and using the MPI Data Base
 

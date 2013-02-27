@@ -9,9 +9,9 @@ void testApp::setup(){
     ofSetFullscreen(true);
     
     dBase.loadCities("cities.csv");
-    dBase.loadSample(2000, "2000.csv");
-    dBase.loadSample(2005, "2005.csv");
-    dBase.loadSample(2010, "2010.csv");
+    dBase.loadYear(2000, "2000.csv");
+    dBase.loadYear(2005, "2005.csv");
+    dBase.loadYear(2010, "2010.csv");
     
     map.setup(new OpenStreetMapProvider(), (double)ofGetWidth(), (double)ofGetHeight());
     myLoc = Location(40.257,-98.7689);
@@ -34,7 +34,7 @@ void testApp::setup(){
     areaZone.arc(point, distance, distance, angle-apperture*0.5, angle+apperture*0.5, true,60);
     areaZone.addVertex(point);
     
-    graphView.init(5,5,160,300);
+    graphView.init(25,25,160,300);
     graphView.bEditMode = true;
 }
 
@@ -83,8 +83,7 @@ void testApp::draw(){
     map.draw();
     
     ofPushStyle();
-    
-    
+
     ofSetColor(0,200,0);
     ofCircle( map.locationPoint(myLoc), map.getZoom() );
     
@@ -98,7 +97,7 @@ void testApp::draw(){
     for (int i = 0; i < citiesPos.size(); i++){
         
         if (areaZone.inside( citiesPos[i] )){
-            ofSetColor(0,0,200,200);
+            ofSetColor(0,50,0,200);
             ofDrawBitmapString(dBase.getCity(i), citiesPos[i] + ofPoint(10,5));
 
             ofFill();
@@ -106,8 +105,14 @@ void testApp::draw(){
             ofNoFill();
         }
         
-        ofSetColor(255,0,0,200);
+        ofSetColor(150,0,0,200);
         ofCircle(citiesPos[i], map.getZoom() * 2);
+        ofSetColor(200,0,0,200);
+        ofCircle(citiesPos[i], map.getZoom());
+        
+        ofFill();
+        ofSetColor(255,0,0,200);
+        ofCircle(citiesPos[i], 2);
         
     }
     
@@ -120,62 +125,59 @@ void testApp::draw(){
     ofRectangle white = graphView;
     white.width = graphView.width*pct;
     white.height = graphView.height * (1.0-PctImm);
-    ofSetColor(255,200);
+    ofSetColor(255,50);
     ofRect(white);
-    ofSetColor(50);
-    ofDrawBitmapString(ofToString( (int)((1.0-PctImm)*100) ) + "%", white.x+5, white.y+15);
-    
-    ofRectangle asian = graphView;
-    asian.width = graphView.width*pct;
-    asian.y = white.y + white.height;
-    asian.height = graphView.height * PctAsian;
-    ofSetColor(227,223,182,200);
-    ofRect(asian);
-    ofSetColor(50);
-    ofDrawBitmapString(ofToString( (int)(PctAsian*100) )+ "%", asian.x+5, asian.y+15);
-    
-    ofRectangle latin = graphView;
-    latin.width = graphView.width*pct;
-    latin.y = asian.y + asian.height;
-    latin.height = graphView.height * PctLatino;
-    ofSetColor(188,112,38,200);
-    ofRect(latin);
-    ofSetColor(255);
-    ofDrawBitmapString(ofToString( (int)(PctLatino*100) )+ "%", latin.x+5, latin.y+15);
     
     ofRectangle black = graphView;
     black.width = graphView.width*pct;
-    black.y = latin.y + latin.height;
+    black.y = white.y + white.height;
     black.height = graphView.height * PctBlack;
-    ofSetColor(61,29,0,200);
+    ofSetColor(0,200,0,200);
     ofRect(black);
     ofSetColor(255);
-    ofDrawBitmapString(ofToString( (int)(PctBlack*100) )+ "%", black.x+5, black.y+15);
+    ofDrawBitmapString(ofToString( (int)(PctBlack*100) )+ "% african a.", black.x+5, black.y+15);
     
+    ofRectangle latin = graphView;
+    latin.width = graphView.width*pct;
+    latin.y = black.y + black.height;
+    latin.height = graphView.height * PctLatino;
+    ofSetColor(0,150,0,200);
+    ofRect(latin);
+    ofSetColor(255);
+    ofDrawBitmapString(ofToString( (int)(PctLatino*100) )+ "% latin", latin.x+5, latin.y+15);
+    
+    ofRectangle asian = graphView;
+    asian.width = graphView.width*pct;
+    asian.y = latin.y + latin.height;
+    asian.height = graphView.height * PctAsian;
+    ofSetColor(0,100,0,200);
+    ofRect(asian);
+    ofSetColor(255);
+    ofDrawBitmapString(ofToString( (int)(PctAsian*100) )+ "% asian", asian.x+5, asian.y+15);
+
     ofRectangle unEmp = graphView;
     unEmp.width = graphView.width*(1.0-pct);
     unEmp.x += graphView.width*pct;
     unEmp.height = graphView.height * PctUnEmploy;
-    ofSetColor(255, 51, 241,200);
+    ofSetColor(255,50);
     ofRect(unEmp);
-    ofSetColor(255);
-    ofDrawBitmapString(ofToString( (int)(PctUnEmploy*100) )+ "%", unEmp.x+5, unEmp.y+15);
     
     ofRectangle emp = graphView;
     emp.width = graphView.width*(1.0-pct);
     emp.x += graphView.width*pct;
     emp.y = unEmp.y + unEmp.height;
     emp.height = graphView.height * (1.0-PctUnEmploy);
-    ofSetColor(60, 51, 255,200);
+    ofSetColor(0,50,0,200);
     ofRect(emp);
+    
+    ofSetColor(255);
+    ofDrawBitmapString(ofToString( (int)(PctUnEmploy*100)) + "%", unEmp.x+5, unEmp.y+15 );
+    ofDrawBitmapString("unEmp", unEmp.x+5, unEmp.y+30);
     
     ofPopMatrix();
     
-    
-    
     ofPopStyle();
-    
-    
+
 }
 
 //--------------------------------------------------------------

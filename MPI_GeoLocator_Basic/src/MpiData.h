@@ -19,7 +19,7 @@ class MpiData {
 public:
     
     void    loadCities( string _cvsFile );
-    void    loadSample( int _year, string _cvsFile );
+    void    loadYear( int _year, string _cvsFile );
     
     //      YEAR
     //
@@ -31,12 +31,17 @@ public:
     
     //      CITY
     //
-    int     getTotalCities();
-    int     getCityId( string _city );
-    string  getCity( int _cityId );
-    string  getState( int _cityId );
-    float   getLatitud( int _cityId );
-    float   getLongitud( int _cityId );
+    int     getTotalCities();           // return the total number of cities
+    int     getCityId( string _city );  // giving a city name it return the ID
+    mpiCity getCityInfo( int _cityId);  // giving a city ID return a mpiCity
+    string  getCity( int _cityId );     // return the name of the city
+    string  getState( int _cityId );    // return the state of a city
+    float   getLatitud( int _cityId );  // return the lat
+    float   getLongitud( int _cityId ); // return the longitud
+    mpiCityCategory getCityCategory( int _cityId); //return the city category
+    vector<mpiCity> getCitiesBy( mpiCityCategory _category ); //return a vector of cities by cat.
+    vector<mpiCity> getCitiesBy( string _state ); // return a vector of cities by giving a state
+    
     
     //      VALUES
     //

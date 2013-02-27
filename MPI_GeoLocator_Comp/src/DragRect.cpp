@@ -51,13 +51,12 @@ void DragRect::_draw(ofEventArgs &e){
         //  Graffiti Area
         //
         ofNoFill();
-        ofSetColor(245, 58, 135,200);
+        ofSetColor(100,200);
         ofRect(0,0,width,height);
         ofFill();
-        ofSetColor(245, 58, 135,150);
+        ofSetColor(100,150);
         ofRect(-7,-7,14,14);
         ofRect(width-7,height-7,14,14);
-        ofSetColor(245, 58, 135,255);
         
         ofPopMatrix();
         ofPopStyle();
