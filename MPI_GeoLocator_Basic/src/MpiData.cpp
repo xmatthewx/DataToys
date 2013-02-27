@@ -147,14 +147,12 @@ void MpiData::loadYear( int _year, string _cvsFile ){
             }
         }
         
-        //  TODO:
-        //          - Check between witch years need to be inserted
+        //  Check between witch years need to be inserted ( sort )
         //
         int offSet = 0;
-        
         for (int i = 0; i < years.size(); i++){
-            if ( _year < years[i] )
-                offSet = i;
+            if ( _year > years[i] )
+                offSet = i+1;
         }
         
         years.insert(years.begin()+offSet, _year);
@@ -186,6 +184,10 @@ int MpiData::getYearId( int _year ){
 
 int MpiData::getYear( int _yearId){
     return years[_yearId];
+}
+
+vector<int> MpiData::getYears(){
+    return years;
 }
 
 int MpiData::getFirstYear(){
@@ -269,6 +271,96 @@ vector<mpiCity> MpiData::getCitiesBy( string _state ){
     return rta;
 }
 
+int MpiData::getCityIdMaxVal( mpiNumValue _mpiNumValue , int _yearId){
+
+    if ( _yearId == -1 ){
+        
+        return getCityIdMaxVal( _mpiNumValue, years.size()-1);
+        
+    } else {
+        float   maxVal = 0;
+        int     cityId = -1;
+        
+        for (int i = 0; i < samples[_yearId].size(); i++){
+            int value = samples[_yearId][i].getNumValue(_mpiNumValue);
+
+            if ( value > maxVal ){
+                maxVal = value;
+                cityId = i;
+            }
+            
+        }
+        
+        return cityId;
+    }
+}
+
+int MpiData::getCityIdMinVal( mpiNumValue _mpiNumValue , int _yearId){
+    if ( _yearId == -1 ){
+        
+        return getCityIdMaxVal( _mpiNumValue, years.size()-1);
+        
+    } else {
+        float   minVal = 10000000;
+        int     cityId = -1;
+        
+        for (int i = 0; i < samples[_yearId].size(); i++){
+            int value = samples[_yearId][i].getNumValue(_mpiNumValue);
+            if ( value < minVal ){
+                minVal = value;
+                cityId = i;
+            }
+            
+        }
+        
+        return cityId;
+        
+    }
+}
+
+int MpiData::getCityIdMaxVal( mpiPctValue _mpiPctValue , int _yearId){
+    if ( _yearId == -1 ){
+        
+        return getCityIdMaxVal( _mpiPctValue, years.size()-1);
+        
+    } else {
+        float   maxVal = 0;
+        int   cityId = -1;
+        
+        for (int i = 0; i < samples[_yearId].size(); i++){
+            float value = samples[_yearId][i].getPctValue(_mpiPctValue);
+            if ( value > maxVal ){
+                maxVal = value;
+                cityId = i;
+            }
+        }
+        return cityId;
+    }
+}
+
+int MpiData::getCityIdMinVal( mpiPctValue _mpiPctValue , int _yearId){
+    if ( _yearId == -1 ){
+        
+        return getCityIdMaxVal( _mpiPctValue, years.size()-1);
+        
+    } else {
+        float   minVal = 100;
+        int     cityId = -1;
+        
+        for (int i = 0; i < samples[_yearId].size(); i++){
+            float value = samples[_yearId][i].getPctValue(_mpiPctValue);
+            if ( value < minVal ){
+                minVal = value;
+                cityId = i;
+            }
+            
+        }
+        
+        return cityId;
+        
+    }
+}
+
 float MpiData::getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId ){
     
     //  Can't accept non legal cityId
@@ -327,7 +419,7 @@ float MpiData::getMinPctVal( mpiPctValue _mpiPctValue, int _cityId ){
     
     //  If city ID is not provide search on for the MIN value of all cities
     //
-    float minVal = 100000000;
+    float minVal = 100;
     
     if ( _cityId == -1 ){
         
@@ -415,7 +507,7 @@ int MpiData::getMinNumVal( mpiPctValue _mpiPctValue, int _cityId ){
             return -1;
         
         for (int i = 0; i < years.size(); i++) {
-            float val = samples[i][_cityId].getNumValue( _mpiPctValue );
+            int val = samples[i][_cityId].getNumValue( _mpiPctValue );
             
             if  (val < minVal)
                 minVal = val;
@@ -433,7 +525,7 @@ int MpiData::getMaxNumVal( mpiPctValue _mpiPctValue, int _cityId ){
     if ( _cityId == -1 ){
         
         for (int i = 0; i < getTotalCities(); i++ ){
-            float val = getMaxNumVal( _mpiPctValue, i );
+            int val = getMaxNumVal( _mpiPctValue, i );
             
             if  (val > maxVal)
                 maxVal = val;
@@ -449,7 +541,7 @@ int MpiData::getMaxNumVal( mpiPctValue _mpiPctValue, int _cityId ){
             return -1;
         
         for (int i = 0; i < years.size(); i++) {
-            float val = samples[i][_cityId].getNumValue( _mpiPctValue );
+            int val = samples[i][_cityId].getNumValue( _mpiPctValue );
             
             if  (val > maxVal)
                 maxVal = val;
@@ -467,7 +559,7 @@ int MpiData::getMinNumVal( mpiNumValue _mpiNumValue, int _cityId ){
     if ( _cityId == -1 ){
         
         for (int i = 0; i < getTotalCities(); i++ ){
-            float val = getMinNumVal( _mpiNumValue, i );
+            int val = getMinNumVal( _mpiNumValue, i );
             
             if  (val < minVal)
                 minVal = val;
@@ -482,7 +574,7 @@ int MpiData::getMinNumVal( mpiNumValue _mpiNumValue, int _cityId ){
             return -1;
         
         for (int i = 0; i < years.size(); i++) {
-            float val = samples[i][_cityId].getNumValue( _mpiNumValue );
+            int val = samples[i][_cityId].getNumValue( _mpiNumValue );
             
             if  (val < minVal)
                 minVal = val;
@@ -500,7 +592,7 @@ int MpiData::getMaxNumVal( mpiNumValue _mpiNumValue, int _cityId ){
     if ( _cityId == -1 ){
         
         for (int i = 0; i < getTotalCities(); i++ ){
-            float val = getMaxNumVal( _mpiNumValue, i );
+            int val = getMaxNumVal( _mpiNumValue, i );
             
             if  (val > maxVal)
                 maxVal = val;
@@ -516,7 +608,7 @@ int MpiData::getMaxNumVal( mpiNumValue _mpiNumValue, int _cityId ){
             return -1;
         
         for (int i = 0; i < years.size(); i++) {
-            float val = samples[i][_cityId].getNumValue( _mpiNumValue );
+            int val = samples[i][_cityId].getNumValue( _mpiNumValue );
             
             if  (val > maxVal)
                 maxVal = val;

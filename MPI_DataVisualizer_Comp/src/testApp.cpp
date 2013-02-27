@@ -9,11 +9,9 @@ void testApp::setup(){
     ofEnableSmoothing();
     
     dBase.loadCities("cities.csv");
-    dBase.loadSample(2000, "2000.csv");
-    dBase.loadSample(2005, "2005.csv");
-    dBase.loadSample(2010, "2010.csv");
-    
-//    cout << dBase.getSample( dBase.getYearId(2000), dBase.getCityId("New York") ).pop << endl;
+    dBase.loadYear(2000, "2000.csv");
+    dBase.loadYear(2005, "2005.csv");
+    dBase.loadYear(2010, "2010.csv");
     
     frame.set(0,0,600,100);
     

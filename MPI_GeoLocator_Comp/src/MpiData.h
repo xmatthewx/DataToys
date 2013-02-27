@@ -40,22 +40,26 @@ public:
     //
     int     getTotalCities();           // return the total number of cities
     int     getCityId( string _city );  // giving a city name it return the ID
-    mpiCity getCityInfo( int _cityId );  // giving a city ID return a mpiCity
     string  getCity( int _cityId );     // return the name of the city
     string  getState( int _cityId );    // return the state of a city
     float   getLatitud( int _cityId );  // return the lat
     float   getLongitud( int _cityId ); // return the longitud
+    int     getCityIdMaxVal( mpiNumValue _mpiNumValue , int _yearId = -1);  //  If not yearId provide it search on LAST year
+    int     getCityIdMinVal( mpiNumValue _mpiNumValue , int _yearId = -1);  //  If not yearId provide it search on LAST year
+    int     getCityIdMaxVal( mpiPctValue _mpiPctValue , int _yearId = -1);  //  If not yearId provide it search on LAST year
+    int     getCityIdMinVal( mpiPctValue _mpiPctValue , int _yearId = -1);  //  If not yearId provide it search on LAST year
     mpiCityCategory getCityCategory( int _cityId); //return the city category
+    
+    mpiCity getCityInfo( int _cityId );  // giving a city ID return a mpiCity
     vector<mpiCity> getCitiesBy( mpiCityCategory _category ); //return a vector of cities by cat.
     vector<mpiCity> getCitiesBy( string _state ); // return a vector of cities by giving a state
     
-    
     //      VALUES
     //
-    float   getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId = -1);
-    int     getNumVal( mpiPctValue _mpiNumValue, int _cityId , int _yearId = -1);
-    int     getNumVal( mpiNumValue _mpiNumValue, int _cityId , int _yearId = -1);
-    
+    float   getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId = -1);   //  If not yearId provide it search on LAST year
+    int     getNumVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId = -1);   //  If not yearId provide it search on LAST year
+    int     getNumVal( mpiNumValue _mpiNumValue, int _cityId , int _yearId = -1);   //  If not yearId provide it search on LAST year
+        
     float   getMinPctVal( mpiPctValue _mpiNumValue, int _cityId = -1);
     float   getMaxPctVal( mpiPctValue _mpiNumValue, int _cityId = -1);
     int     getMinNumVal( mpiPctValue _mpiNumValue, int _cityId = -1);

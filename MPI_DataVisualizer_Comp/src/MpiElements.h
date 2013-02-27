@@ -8,12 +8,14 @@
 #ifndef MPI_DataVisualizer_MpiElements_h
 #define MPI_DataVisualizer_MpiElements_h
 
+#include "ofMain.h"
+
 enum mpiCityCategory{
     //  As you can see this dataBase don't cover all the cities on the US. MPI choose 25 cities following the last 3 criterias:
     //
     MPI_CITY_LARGEST_CONCENTRATION,  //  1   Ten cities with largest concentration of foreing-born popultion
     MPI_CITY_FASTEST_GROWING,        //  2   Ten cities with fastest growing foreing-born population
-    MPI_CITY_ACTIVE_RECRUITING       //  3   Ten cities most actively cruiting the foreing born
+    MPI_CITY_ACTIVE_RECRUITING       //  3   Five cities most actively cruiting the foreing born
     //
     //  More info: https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/project_overview.pdf?raw=true
 };
