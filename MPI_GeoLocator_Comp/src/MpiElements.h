@@ -1,6 +1,5 @@
 //
 //  MpiElements.h
-//  MPI_DataVisualizer
 //
 //  Created by Patricio Gonzalez Vivo on 2/19/13.
 //
@@ -9,159 +8,255 @@
 #ifndef MPI_DataVisualizer_MpiElements_h
 #define MPI_DataVisualizer_MpiElements_h
 
-enum mpiStarsIndex {
-    LARGEST_CONCENTRATION,  //  1   Ten cities with largest concentration of foreing-born popultion
-    FASTEST_GROWING,        //  2   Ten cities with fastest growing foreing-born population
-    ACTIVE_RECRUITING       //  3   Ten cities most actively cruiting the foreing born
-    
-    //  Se the end of https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/project_overview.pdf?raw=true
+enum mpiCityCategory{
+    //  As you can see this dataBase don't cover all the cities on the US. MPI choose 25 cities following the last 3 criterias:
     //
+    MPI_CITY_LARGEST_CONCENTRATION,  //  1   Ten cities with largest concentration of foreing-born popultion
+    MPI_CITY_FASTEST_GROWING,        //  2   Ten cities with fastest growing foreing-born population
+    MPI_CITY_ACTIVE_RECRUITING       //  3   Ten cities most actively cruiting the foreing born
+    //
+    //  More info: https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/project_overview.pdf?raw=true
 };
 
-enum mpiValue{
-    MPI_CITY_ID = 0,
-    MPI_POPULATION_TOTAL = 1,
-    MPI_POPULATION_IMMIGRANTS = 2,
-    MPI_POPULATION_SHARE = 3,
-    MPI_RECENT_ARRIVALS = 4,
-    MPI_DEGREE_IMMIGRANTS_NO = 5,
-    MPI_DEGREE_IMMIGRANTS_HIGHSCHOOL = 6,
-    MPI_DEGREE_IMMIGRANTS_BA = 7,
-    MPI_DEGREE_NATIVE_NO = 8,
-    MPI_DEGREE_NATIVE_HIGHSCHOOL = 9,
-    MPI_DEGREE_NATIVE_BA = 10,
-    MPI_EMPLOYED_TOTAL = 11,
-    MPI_EMPLOYED_IMMIGRANTS = 12,
-    MPI_EMPLOYED_NATIVE = 13,
-    MPI_EMPLOYED_SHARE = 14,
-    MPI_UNEMPLOYMENT = 15,
-    MPI_POVERTY = 16,
-    MPI_HOMEOWNERS = 17,
-    MPI_ETHNIC_BLACK = 18,
-    MPI_ETHNIC_ASIAN = 19,
-    MPI_ETHNIC_LATINO = 20,
-    MPI_ETHNIC_NONWHITE = 21,
-    MPI_ETHNIC_NONENGLISH_SPK = 22,
-    MPI_CREATIVE_CLASS = 23
-};
-
-//  GeoLocalization information of the city
+//  Each one of the cities censed represent a mpiCity
 //
-struct CityLoc{
-    int     nId;            //  We need this to cross the information with the Sample to place it in a map
+struct mpiCity {
+    int     nId;        // The position on the dataBase, it is consisten on the four .csv files. Ex: 01
     
-    string  name, state;        //  It's good to have names isn' t
-    float   latitud, longitud;  //  This is the key to position them on a world map
+    string  name;       //  Name of the City. Ex: "New York"
+    string  state;      //  To capital letters that describe the State. i.e. "NY"
     
-    mpiStarsIndex stars;    //  Using the Index described here https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/project_overview.pdf?raw=true
+    float   lat;        //  Latitud geo position of the city: i.e. 43.0000
+    float   lon;        //  Longitud geo position of the city: i.e. -75.0000
+    
+    mpiCityCategory category;   // This follows the criteria for selecting this city as is described above. Ex: 1
+    //
+    //  Using the Index described here https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/project_overview.pdf?raw=true
 };
 
-//  Sample by City
+enum mpiNumValue{
+    //  On the dataBase there are 5 columns that contain INTEGER information.
+    //
+    MPI_NUM_POPULATION,
+    MPI_NUM_IMMIGRANTS,
+    MPI_NUM_EMPLOYED,               //  (pop. 16+)
+    MPI_NUM_EMPLOYED_IMMIGRANTS,    //  (pop. 16+)
+    MPI_NUM_EMPLOYED_NATIVE         //  (pop. 16+)
+    //
+    // More info: https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/data_overview.pdf?raw=true
+};
+
+enum mpiPctValue{
+    //  The other columns on the dataBase contain porcentage numbers.
+    //
+    MPI_PCT_POPULATION_SHARE,
+    MPI_PCT_RECENT_ARRIVALS,
+    //
+    //  EDUCATION
+    //
+    MPI_PCT_DEGREE_IMMIGRANTS_NO,           //  (pop. 25+)
+    MPI_PCT_DEGREE_IMMIGRANTS_HIGHSCHOOL,   //  (pop. 25+)
+    MPI_PCT_DEGREE_IMMIGRANTS_BA,           //  (pop. 25+)
+    MPI_PCT_DEGREE_NATIVE_NO,               //  (pop. 25+)
+    MPI_PCT_DEGREE_NATIVE_HIGHSCHOOL,       //  (pop. 25+)
+    MPI_PCT_DEGREE_NATIVE_BA,               //  (pop. 25+)
+    //
+    //  ECONOMIC
+    //
+    MPI_PCT_EMPLOYED_SHARE,
+    MPI_PCT_UNEMPLOYMENT,
+    MPI_PCT_POVERTY,
+    MPI_PCT_HOMEOWNERS,
+    //
+    //  ETHNIC
+    //
+    MPI_PCT_ETHNIC_BLACK,
+    MPI_PCT_ETHNIC_ASIAN,
+    MPI_PCT_ETHNIC_LATINO,
+    MPI_PCT_ETHNIC_NONWHITE,
+    MPI_PCT_ETHNIC_NONENGLISH_SPK,
+    //
+    //  CULTURAL
+    //
+    MPI_PCT_CREATIVE_CLASS
+    //
+    // More info: https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/data_overview.pdf?raw=true
+};
+
+//  There is a city sample for each year that city was censed
 //
-struct CitySample {
+struct mpiCitySample {
     
-    float   getValue( mpiValue _mpiValue ){
-        switch (_mpiValue) {
-            case MPI_CITY_ID:
-                return nId;
-            case MPI_POPULATION_TOTAL:
+    int     getNumValue( mpiNumValue _numValue ){
+        //  Deliver the TOTAL NUMBERS of people
+        //
+        switch (_numValue) {
+            case MPI_NUM_POPULATION:
                 return pop;
-            case MPI_POPULATION_IMMIGRANTS:
+            case MPI_NUM_IMMIGRANTS:
                 return popImm;
-            case MPI_POPULATION_SHARE:
-                return popImmShare;
-            case MPI_RECENT_ARRIVALS:
-                return recArr;
-            case MPI_DEGREE_IMMIGRANTS_NO:
-                return noDegreeImm;
-            case MPI_DEGREE_IMMIGRANTS_HIGHSCHOOL:
-                return hsDegreeImm;
-            case MPI_DEGREE_IMMIGRANTS_BA:
-                return baDegreeImm;
-            case MPI_DEGREE_NATIVE_NO:
-                return noDegreeNat;
-            case MPI_DEGREE_NATIVE_HIGHSCHOOL:
-                return hsDegreeNat;
-            case MPI_DEGREE_NATIVE_BA:
-                return baDegreeNat;
-            case MPI_EMPLOYED_TOTAL:
+            case MPI_NUM_EMPLOYED:
                 return employedTotal;
-            case MPI_EMPLOYED_IMMIGRANTS:
+            case MPI_NUM_EMPLOYED_IMMIGRANTS:
                 return employedImm;
-            case MPI_EMPLOYED_NATIVE:
+            case MPI_NUM_EMPLOYED_NATIVE:
                 return employedNat;
-            case MPI_EMPLOYED_SHARE:
+            default:
+                return -1;          //  Every time you recive a -1 means you are doing something wrong
+        }
+    }
+    
+    float   getPctValue( mpiPctValue _pctValue ){
+        //  Delivers PERCENTAGE NUMBERS according to:
+        //  https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/data_overview.pdf?raw=true
+        //
+        switch (_pctValue) {
+            case MPI_PCT_POPULATION_SHARE:
+                return popImmShare;
+            case MPI_PCT_RECENT_ARRIVALS:
+                return recArr;
+            case MPI_PCT_DEGREE_IMMIGRANTS_NO:
+                return noDegreeImm;
+            case MPI_PCT_DEGREE_IMMIGRANTS_HIGHSCHOOL:
+                return hsDegreeImm;
+            case MPI_PCT_DEGREE_IMMIGRANTS_BA:
+                return baDegreeImm;
+            case MPI_PCT_DEGREE_NATIVE_NO:
+                return noDegreeNat;
+            case MPI_PCT_DEGREE_NATIVE_HIGHSCHOOL:
+                return hsDegreeNat;
+            case MPI_PCT_DEGREE_NATIVE_BA:
+                return baDegreeNat;
+            case MPI_PCT_EMPLOYED_SHARE:
                 return employedImmShare;
-            case MPI_UNEMPLOYMENT:
+            case MPI_PCT_UNEMPLOYMENT:
                 return unEmployment;
-            case MPI_POVERTY:
+            case MPI_PCT_POVERTY:
                 return poverty;
-            case MPI_HOMEOWNERS:
+            case MPI_PCT_HOMEOWNERS:
                 return homeOwners;
-            case MPI_ETHNIC_BLACK:
+            case MPI_PCT_ETHNIC_BLACK:
                 return black;
-            case MPI_ETHNIC_ASIAN:
+            case MPI_PCT_ETHNIC_ASIAN:
                 return asian;
-            case MPI_ETHNIC_LATINO:
+            case MPI_PCT_ETHNIC_LATINO:
                 return latino;
-            case MPI_ETHNIC_NONWHITE:
+            case MPI_PCT_ETHNIC_NONWHITE:
                 return nonWhite;
-            case MPI_ETHNIC_NONENGLISH_SPK:
+            case MPI_PCT_ETHNIC_NONENGLISH_SPK:
                 return nonEnglSpk;
-            case MPI_CREATIVE_CLASS:
+            case MPI_PCT_CREATIVE_CLASS:
                 return creativeClass;
+            default:
+                return -1;      //  Every time you recive a -1 means you are doing something wrong
+        }
+    }
+    
+    int getNumValue( mpiPctValue _pctValue ){
+        //  This function actually do a TRANSFORMATION from PERCENTAGE to TOTAL NUMBER according to
+        //  https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/data_overview.pdf?raw=true
+        //
+        switch (_pctValue) {
+            case MPI_PCT_POPULATION_SHARE:
+                return pop*(popImmShare*0.01);
+            case MPI_PCT_RECENT_ARRIVALS:
+                return pop*(recArr*0.01);
+                
+            //  CAUTION: We can not calculate directly here because the PCT is of people 25+
+            //
+//            case MPI_PCT_DEGREE_IMMIGRANTS_NO:
+//                return pop*(noDegreeImm*0.01);
+//            case MPI_PCT_DEGREE_IMMIGRANTS_HIGHSCHOOL:
+//                return pop*(hsDegreeImm*0.01);
+//            case MPI_PCT_DEGREE_IMMIGRANTS_BA:
+//                return pop*(baDegreeImm*0.01);
+//            case MPI_PCT_DEGREE_NATIVE_NO:
+//                return pop*(noDegreeNat*0.01);
+//            case MPI_PCT_DEGREE_NATIVE_HIGHSCHOOL:
+//                return pop*(hsDegreeNat*0.01);
+//            case MPI_PCT_DEGREE_NATIVE_BA:
+//                return pop*(baDegreeNat*0.01);
+                
+            case MPI_PCT_EMPLOYED_SHARE:
+                return employedTotal*(employedImmShare*0.01);   //  This is the only one that is not over the total population
+                
+            case MPI_PCT_UNEMPLOYMENT:
+                return pop*(unEmployment*0.01);
+            case MPI_PCT_POVERTY:
+                return pop*(poverty*0.01);
+            case MPI_PCT_HOMEOWNERS:
+                return pop*(homeOwners*0.01);
+            case MPI_PCT_ETHNIC_BLACK:
+                return pop*(black*0.01);
+            case MPI_PCT_ETHNIC_ASIAN:
+                return pop*(asian*0.01);
+            case MPI_PCT_ETHNIC_LATINO:
+                return pop*(latino*0.01);
+            case MPI_PCT_ETHNIC_NONWHITE:
+                return pop*(nonWhite*0.01);
+            case MPI_PCT_ETHNIC_NONENGLISH_SPK:
+                return pop*(nonEnglSpk*0.01);
+            case MPI_PCT_CREATIVE_CLASS:
+                return pop*(creativeClass*0.01);
+                
+            //  Every time you recive a -1 means you are doing something wrong
+            //
             default:
                 return -1;
         }
     }
     
-    //  City ID
     //
-    int     nId;
-    
-    //  Population
+    //---------------------------------------------- RAW DATA
     //
-    int     pop;            //Number: Total pop
-    int     popImm;         //Number:  Immigrants
+    int     nId;            //  City ID
     
-    float   popImmShare;    //Immigrant share (%)
-    float   recArr;         //Recent arrivals (%) of all immigrants
-    
-    //  Education
+    //  POPULATION
     //
-    float   noDegreeImm;    //Percent: No high school degree   Immigrants
-    float   hsDegreeImm;    //Percent: High school/AA degree  Immigrants
-    float   baDegreeImm;    //Percent: BA/higher  Immigrants
-    float   noDegreeNat;    //Percent: No high school degree  Native born
-    float   hsDegreeNat;    //Percent: High school/AA degree Native born
-    float   baDegreeNat;    //Percent: BA/higher Native born
+    int     pop;            //  Number of total population
+    int     popImm;         //  Number of total immigrants
     
-    //  Employment
+    float   popImmShare;    //  % of immigrant share
+    float   recArr;         //  % of immigrants who are recent arrivals (arrived within the last 10 years)
+    
+    //  EDUCATION/SKILLED
+    //  * Among immigrant adults (pop. 25+): % low-, middle-, and high skilled
     //
-    int     employedTotal;  //Number:  Employed
-    int     employedImm;    //Number:  Imm  Employed
-    int     employedNat;    //Number:  Natives  Employed
+    float   noDegreeImm;    //  % no high school degree  Immigrants
+    float   hsDegreeImm;    //  % high school/AA degree  Immigrants
+    float   baDegreeImm;    //  % BA/higher  Immigrants
     
-    float   employedImmShare;   // Imm share among all empl (%)
-    float   unEmployment;       //Unemployment rate (%)
-    
-    //  Financial
+    //  * Among native adults (pop. 25+): % low-, middle-, and high skilled
     //
-    float   poverty;        //Poverty rate (%)
-    float   homeOwners;     //Rate of home ownership (%)
+    float   noDegreeNat;    //  % No high school degree  Native born
+    float   hsDegreeNat;    //  % High school/AA degree Native born
+    float   baDegreeNat;    //  % BA/higher Native born
     
-    //  Ethnic/Cultural
+    //  FINANCIAL
     //
-    float   black;          //Percent: Black
-    float   asian;          //Percent: Asian
-    float   latino;         //Percent: Latino
-    float   nonWhite;       //Percent: Non-white
-    float   nonEnglSpk;     //Percent: Speak other lang (than English)
+    int     employedTotal;  //  Number of all employed workers (pop. 16+)
+    int     employedImm;    //  Number of immigrant employed workers (pop. 16+)
+    int     employedNat;    //  Number of native employed workers (pop. 16+)
     
-    float   creativeClass;  //Percent: Creative class
+    float   employedImmShare;// Immigrant share (% among all employed)
+    float   unEmployment;   //  % Unemployed (of total pop.)
+
+    float   poverty;        //  % in Poverty (of total pop.)
+    float   homeOwners;     //  Rate of home ownership (%)
     
-    //  Confused?? Need help?? Check this:
-    //  https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/data_overview.pdf?raw=true
+    //  ETHNICAL/CULTURAL (these serve as proxies for ethnic/linguistic diversity)
+    //
+    float   black;          //  % Black (of total pop.)
+    float   asian;          //  % Asian (of total pop.)
+    float   latino;         //  % Latino (of total pop.)
+    float   nonWhite;       //  % Non-white (of total pop.)
+    float   nonEnglSpk;     //  % Speak other lang (than English) (of total pop.)
+    
+    float   creativeClass;  //  % Creative class
+    //  i.e., share employed in professional occupations and had at least a bachelor’s degree among all employed adults
+    
+    //
+    //  More info: https://github.com/patriciogonzalezvivo/DataToys/blob/master/MPI_DataBase/data_overview.pdf?raw=true
     
 };
 

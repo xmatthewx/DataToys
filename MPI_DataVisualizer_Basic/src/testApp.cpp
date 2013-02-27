@@ -18,15 +18,17 @@ void testApp::setup(){
     frame.set(0,0,600,100);
     
     city = "New York";
-    maxPop = MAX(dBase.getMaxVal( MPI_POPULATION_TOTAL), dBase.getMaxVal( MPI_POPULATION_IMMIGRANTS) );
-    minPop = MIN(dBase.getMinVal( MPI_POPULATION_TOTAL), dBase.getMinVal( MPI_POPULATION_IMMIGRANTS) );
+    maxPop = MAX(dBase.getMaxNumVal( MPI_NUM_POPULATION), dBase.getMaxNumVal( MPI_NUM_IMMIGRANTS ) );
+    minPop = MIN(dBase.getMinNumVal( MPI_NUM_POPULATION), dBase.getMinNumVal( MPI_NUM_IMMIGRANTS ) );
     
-    pop = makeChart( dBase.getCityId(city) , MPI_POPULATION_TOTAL , frame, minPop, maxPop );
-    popImm = makeChart( dBase.getCityId(city) , MPI_POPULATION_IMMIGRANTS, frame, minPop, maxPop );
+    pop = makeChart( dBase.getCityId(city) , MPI_NUM_POPULATION , frame, minPop, maxPop );
+    popImm = makeChart( dBase.getCityId(city) , MPI_NUM_IMMIGRANTS , frame, minPop, maxPop );
+    
+    cam.rotate(160, 1.0, 0, 0);
 }
 
 //--------------------------------------------------------------
-ofPolyline  testApp::makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal ){
+ofPolyline  testApp::makeChart( int _cityId, mpiNumValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal ){
     ofPolyline line;
     
     line.addVertex( ofPoint(_rect.x, _rect.y+_rect.height) );
@@ -34,7 +36,7 @@ ofPolyline  testApp::makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _re
     //  Construct the mesh
     //
     for (int i = 0; i < dBase.getTotalYears(); i++) {
-        float val = dBase.getSample(i, _cityId).getValue( _mpiValue );
+        int val = dBase.getNumVal(_mpiValue, _cityId, i);
         
         ofPoint vertex;
         vertex.x = ofMap( dBase.getYear(i) , dBase.getFirstYear(), dBase.getLastYear() , _rect.x, _rect.width, true);

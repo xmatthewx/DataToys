@@ -54,13 +54,13 @@ void testApp::update(){
         
         if (areaZone.inside( citiesPos[i] )){
             
-            tmpPop += dBase.getSample( dBase.getTotalYears()-1 , i).pop;
+            tmpPop += dBase.getNumVal(MPI_NUM_POPULATION, i);
             
-            tmpBlack += dBase.getSample( dBase.getTotalYears()-1 , i).pop * (dBase.getSample( dBase.getTotalYears()-1 , i).black*0.01);
-            tmpAsian += dBase.getSample( dBase.getTotalYears()-1 , i).pop * (dBase.getSample( dBase.getTotalYears()-1 , i).asian*0.01);
-            tmpLatino += dBase.getSample( dBase.getTotalYears()-1 , i).pop * (dBase.getSample( dBase.getTotalYears()-1 , i).latino*0.01);
-            
-            tmpUnEmp += dBase.getSample( dBase.getTotalYears()-1 , i).pop * (dBase.getSample( dBase.getTotalYears()-1 , i).unEmployment*0.01);
+            tmpBlack += dBase.getNumVal(MPI_PCT_ETHNIC_BLACK, i);
+            tmpAsian += dBase.getNumVal(MPI_PCT_ETHNIC_ASIAN, i);
+            tmpLatino += dBase.getNumVal(MPI_PCT_ETHNIC_LATINO, i);
+
+            tmpUnEmp += dBase.getNumVal(MPI_PCT_UNEMPLOYMENT, i);
         }
     }
     

@@ -22,7 +22,7 @@ public:
     void gotMessage(ofMessage msg);
     
     void        generateCharts(bool &_bool);
-    ofPolyline  makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal );
+    ofPolyline  makeChart( int _cityId, mpiNumValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal );
     
     MpiData     dBase;
     
@@ -32,7 +32,7 @@ public:
     
     ofxPanel    cities;
     vector<ofxToggle>   selectedCities;
-    vector<mpiValue>    selectedValues;
+    vector<mpiNumValue>    selectedValues;
     vector< vector<ofPolyline> > charts;
     
     int         min, max;

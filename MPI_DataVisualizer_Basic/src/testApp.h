@@ -19,7 +19,7 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    ofPolyline  makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal );
+    ofPolyline  makeChart( int _cityId, mpiNumValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal );
     
     MpiData     dBase;
     

@@ -37,8 +37,8 @@ void testApp::setup(){
 }
 
 void testApp::generateCharts(bool &_bool){
-    max = MAX(dBase.getMaxVal( MPI_POPULATION_TOTAL), dBase.getMaxVal( MPI_POPULATION_IMMIGRANTS) );
-    min = MIN(dBase.getMinVal( MPI_POPULATION_TOTAL), dBase.getMinVal( MPI_POPULATION_IMMIGRANTS) );
+    max = MAX(dBase.getMaxNumVal( MPI_NUM_POPULATION), dBase.getMaxNumVal( MPI_NUM_IMMIGRANTS ) );
+    min = MIN(dBase.getMinNumVal( MPI_NUM_POPULATION), dBase.getMinNumVal( MPI_NUM_IMMIGRANTS ) );
     
     charts.clear();
     
@@ -49,7 +49,7 @@ void testApp::generateCharts(bool &_bool){
         bool selected = selectedCities[i];
         if ( selected == true ){
             
-            ofPolyline chart = makeChart(i, MPI_POPULATION_TOTAL, frame, min, max);
+            ofPolyline chart = makeChart(i, MPI_NUM_POPULATION, frame, min, max);
             
             mpiValCharts.push_back(chart);
         }
@@ -62,7 +62,7 @@ void testApp::generateCharts(bool &_bool){
     for(int i = 0; i < selectedCities.size(); i++){
         if ( selectedCities[i] == true ){
             
-            ofPolyline chart = makeChart(i, MPI_POPULATION_IMMIGRANTS, frame, min, max);
+            ofPolyline chart = makeChart(i, MPI_NUM_IMMIGRANTS, frame, min, max);
             
             mpiValCharts.push_back(chart);
         }
@@ -72,7 +72,7 @@ void testApp::generateCharts(bool &_bool){
 }
 
 //--------------------------------------------------------------
-ofPolyline  testApp::makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal ){
+ofPolyline  testApp::makeChart( int _cityId, mpiNumValue _mpiValue, ofRectangle _rect, float _minVal,  float _maxVal ){
     ofPolyline line;
     
     line.addVertex( ofPoint(_rect.x, _rect.y+_rect.height) );
@@ -80,7 +80,7 @@ ofPolyline  testApp::makeChart( int _cityId, mpiValue _mpiValue, ofRectangle _re
     //  Construct the mesh
     //
     for (int i = 0; i < dBase.getTotalYears(); i++) {
-        float val = dBase.getSample(i, _cityId).getValue( _mpiValue );
+        int val = dBase.getNumVal(_mpiValue, _cityId, i);
         
         ofPoint vertex;
         vertex.x = ofMap( dBase.getYear(i) , dBase.getFirstYear(), dBase.getLastYear() , _rect.x, _rect.width, true);

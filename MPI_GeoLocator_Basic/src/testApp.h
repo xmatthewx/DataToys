@@ -31,11 +31,6 @@ public:
     MpiData     dBase;
     
     vector <ofPoint> citiesPos;
-    Location    myLoc;
-    float       angle;
-    float       apperture;
-    float       distance;
-    ofPolyline  areaZone;
 };
 
 #endif

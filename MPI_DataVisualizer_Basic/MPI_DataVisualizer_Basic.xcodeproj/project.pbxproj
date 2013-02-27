@@ -9,70 +9,6 @@
 		<string>42</string>
 		<key>objects</key>
 		<dict>
-			<key>3bafe2897d2fabe86454a7ad3114b0da</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.c.h</string>
-				<key>fileEncoding</key>
-				<string>30</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxCsv.h</string>
-				<key>path</key>
-				<string>../../../addons/ofxCsv/src/ofxCsv.h</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
-			<key>412e4bca71876a3b006ce76e3eb86ef8</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>efece002fa2814dbd4904261d7d3e1a8</string>
-					<string>3bafe2897d2fabe86454a7ad3114b0da</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>src</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>5cfac65997cfc4c36cd009b7010cd439</key>
-			<dict>
-				<key>children</key>
-				<array>
-					<string>412e4bca71876a3b006ce76e3eb86ef8</string>
-				</array>
-				<key>isa</key>
-				<string>PBXGroup</string>
-				<key>name</key>
-				<string>ofxCsv</string>
-				<key>sourceTree</key>
-				<string>&lt;group&gt;</string>
-			</dict>
-			<key>77699bf6bd81647f909a000909a73fc2</key>
-			<dict>
-				<key>fileRef</key>
-				<string>efece002fa2814dbd4904261d7d3e1a8</string>
-				<key>isa</key>
-				<string>PBXBuildFile</string>
-			</dict>
-			<key>efece002fa2814dbd4904261d7d3e1a8</key>
-			<dict>
-				<key>explicitFileType</key>
-				<string>sourcecode.cpp.cpp</string>
-				<key>fileEncoding</key>
-				<string>30</string>
-				<key>isa</key>
-				<string>PBXFileReference</string>
-				<key>name</key>
-				<string>ofxCsv.cpp</string>
-				<key>path</key>
-				<string>../../../addons/ofxCsv/src/ofxCsv.cpp</string>
-				<key>sourceTree</key>
-				<string>SOURCE_ROOT</string>
-			</dict>
 			<key>6b229c14c530708589e751a8b571f2e2</key>
 			<dict>
 				<key>explicitFileType</key>
@@ -128,9 +64,7 @@
 			<key>BB4B014C10F69532006C3DED</key>
 			<dict>
 				<key>children</key>
-				<array>
-					<string>5cfac65997cfc4c36cd009b7010cd439</string>
-				</array>
+				<array />
 				<key>isa</key>
 				<string>PBXGroup</string>
 				<key>name</key>
@@ -533,8 +467,6 @@
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxCsv/libs</string>
-						<string>../../../addons/ofxCsv/src</string>
 					</array>
 					<key>ARCHS</key>
 					<string>$(NATIVE_ARCH)</string>
@@ -592,8 +524,6 @@
 					<array>
 						<string>$(OF_CORE_HEADERS)</string>
 						<string>src</string>
-						<string>../../../addons/ofxCsv/libs</string>
-						<string>../../../addons/ofxCsv/src</string>
 					</array>
 					<key>ARCHS</key>
 					<string>$(NATIVE_ARCH)</string>
@@ -652,7 +582,6 @@
 					<string>E4B69E200A3A1BDC003C02F2</string>
 					<string>E4B69E210A3A1BDC003C02F2</string>
 					<string>c7b8415b628b474dfde0ab563b8b5bd3</string>
-					<string>77699bf6bd81647f909a000909a73fc2</string>
 				</array>
 				<key>isa</key>
 				<string>PBXSourcesBuildPhase</string>

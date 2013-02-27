@@ -1,6 +1,5 @@
 //
 //  MpiData.cpp
-//  MPI_DataVisualizer
 //
 //  Created by Patricio Gonzalez Vivo on 2/19/13.
 //
@@ -8,104 +7,155 @@
 
 #include "MpiData.h"
 
-MpiData::MpiData(){
-    
-}
-
 void MpiData::loadCities( string _cvsFile ){
-    ofxCsv  cvs;
-    cvs.loadFile( ofToDataPath( _cvsFile ) );
     
-    //  Check every row except for the first one that have the titles of the columns
-    //
-    for (int i = 1; i < cvs.data.size(); i++){
-        CityLoc newCity;
-        newCity.nId = cvs.getInt(i, 0);
+    // Declare a File Stream.
+    ifstream fileIn;
+	
+    // Open your text File:
+    fileIn.open( ofToDataPath( _cvsFile ).c_str());
+	
+    // Check if File is open.
+    if(fileIn.is_open()) {
+        int lineCount = 0;
         
-        newCity.name = cvs.getString(i, 1);
-        newCity.state = cvs.getString(i, 2);
-        
-        newCity.latitud = cvs.getFloat(i, 3);
-        newCity.longitud = cvs.getFloat(i, 4);
-        int stars = cvs.getInt(i, 5);
-        
-        switch (stars) {
-            case 1:
-                newCity.stars = LARGEST_CONCENTRATION;
-                break;
-            case 2:
-                newCity.stars = FASTEST_GROWING;
-                break;
-            case 3:
-                newCity.stars = ACTIVE_RECRUITING;
-                break;
+        while(fileIn != NULL) {
+            string temp;
+            getline(fileIn, temp);
+			
+            // Skip empty lines.
+            if(temp.length() == 0) {
+                //cout << "Skip empty line no: " << lineCount << endl;
+            }
+            // Skip Comment lines.
+            else if(ofToString(temp[0]) == "#") {
+                //cout << "Skip Comment line no: " << lineCount << endl;
+            } else {
+                // Split row into cols.
+				// formerly was: vector<string> cols = ofSplitString(rows[lineCount], ",");
+                vector<string> values = ofSplitString(temp, ",");
+				
+                if (lineCount > 0){
+                    mpiCity newCity;
+                    newCity.nId = ofToInt(values[0]);
+                    
+                    newCity.name = values[1];
+                    newCity.state = values[2];
+                    
+                    newCity.lat = ofToFloat(values[3]);
+                    newCity.lon = ofToFloat(values[4]);
+                    int stars = ofToInt(values[5]);
+                    
+                    switch (stars) {
+                        case 1:
+                            newCity.category = MPI_CITY_LARGEST_CONCENTRATION;
+                            break;
+                        case 2:
+                            newCity.category = MPI_CITY_FASTEST_GROWING;
+                            break;
+                        case 3:
+                            newCity.category = MPI_CITY_ACTIVE_RECRUITING;
+                            break;
+                    }
+                    
+                    cities.push_back(newCity);
+                }
+                
+                lineCount++;
+            }
         }
-        
-        cout << newCity.name << ", " << newCity.state << " (" << newCity.latitud << "," << newCity.longitud << ")" << endl;
-        
-        cities.push_back(newCity);
     }
 }
 
 void MpiData::loadSample( int _year, string _cvsFile ){
+
     
-    ofxCsv  cvs;
-    cvs.loadFile( ofToDataPath( _cvsFile ) );
     
-    vector<CitySample> newYearSample;
+    // Declare a File Stream.
+    ifstream fileIn;
+	
+    // Open your text File:
+    fileIn.open( ofToDataPath( _cvsFile ).c_str());
+	
+    vector<mpiCitySample> newYearSample;
     
-    //  Check every row except for the first one that have the titles of the columns
-    //
-    for (int i = 1; i < cvs.data.size(); i++){
+    // Check if File is open.
+    if(fileIn.is_open()) {
+        int lineCount = 0;
         
-        CitySample newSample;
-        newSample.nId = cvs.getInt(i, 0);
-        newSample.pop = cvs.getInt(i, 2);               //Number: Total pop
-        newSample.popImm = cvs.getInt(i, 3);            //Number:  Immigrants
-        newSample.popImmShare = cvs.getFloat(i, 4);     //Immigrant share (%) (???)
-        newSample.recArr = cvs.getFloat(i, 5);          //Recent arrivals (%) of all immigrants
+        while(fileIn != NULL) {
+            string temp;
+            getline(fileIn, temp);
+			
+            // Skip empty lines.
+            if(temp.length() == 0) {
+                //cout << "Skip empty line no: " << lineCount << endl;
+            }
+            // Skip Comment lines.
+            else if(ofToString(temp[0]) == "#") {
+                //cout << "Skip Comment line no: " << lineCount << endl;
+            } else {
+                // Split row into cols.
+				// formerly was: vector<string> cols = ofSplitString(rows[lineCount], ",");
+                vector<string> values = ofSplitString(temp, ",");
+				
+                if (lineCount > 0){
+                    
+                    mpiCitySample newSample;
+                    newSample.nId = ofToInt(values[0]);
+                    newSample.pop = ofToInt(values[2]);             //  Number: Total pop
+                    newSample.popImm = ofToInt(values[3]);          //  Number:  Immigrants
+                    newSample.popImmShare = ofToFloat(values[4]);   //  Immigrant share (%) (???)
+                    newSample.recArr = ofToFloat(values[5]);        //  Recent arrivals (%) of all immigrants
+                    
+                    //  Education
+                    //
+                    newSample.noDegreeImm = ofToFloat(values[6]);    //Percent: No high school degree   Immigrants
+                    newSample.hsDegreeImm = ofToFloat(values[7]);    //Percent: High school/AA degree  Immigrants
+                    newSample.baDegreeImm = ofToFloat(values[8]);    //Percent: BA/higher  Immigrants
+                    newSample.noDegreeNat = ofToFloat(values[9]);   //Percent: No high school degree  Native born
+                    newSample.hsDegreeNat = ofToFloat(values[10]);    //Percent: High school/AA degree Native born
+                    newSample.baDegreeNat = ofToFloat(values[11]);    //Percent: BA/higher Native born
+                    
+                    //  Employment
+                    //
+                    newSample.employedTotal = ofToInt(values[12]);  //Number:  Employed
+                    newSample.employedImm = ofToInt(values[13]);    //Number:  Imm  Employed
+                    newSample.employedNat = ofToInt(values[14]);    //Number:  Natives  Employed
+                    
+                    newSample.employedImmShare = ofToFloat(values[15]);   // Imm share among all empl (%) (???)
+                    newSample.unEmployment = ofToFloat(values[16]);       //Unemployment rate (%)
+                    
+                    //  Financial
+                    //
+                    newSample.poverty = ofToFloat(values[17]);        //Poverty rate (%)
+                    newSample.homeOwners = ofToFloat(values[18]);     //Rate of home ownership (%)
+                    
+                    //  Ethnic/Cultural
+                    //
+                    newSample.black = ofToFloat(values[19]);          //Percent: Black
+                    newSample.asian = ofToFloat(values[20]);          //Percent: Asian
+                    newSample.latino = ofToFloat(values[21]);         //Percent: Latino
+                    newSample.nonWhite = ofToFloat(values[22]);       //Percent: Non-white
+                    newSample.nonEnglSpk = ofToFloat(values[23]);     //Percent: Speak other lang (than English)
+                    
+                    newSample.creativeClass = ofToFloat(values[24]);
+                    
+                    newYearSample.push_back(newSample);
+                    
+                }
+                
+                lineCount++;
+            }
+        }
         
-        //  Education
+        //  TODO:
+        //          - Check between witch years need to be inserted
         //
-        newSample.noDegreeImm = cvs.getFloat(i, 6);    //Percent: No high school degree   Immigrants
-        newSample.hsDegreeImm = cvs.getFloat(i, 7);    //Percent: High school/AA degree  Immigrants
-        newSample.baDegreeImm = cvs.getFloat(i, 8);    //Percent: BA/higher  Immigrants
-        newSample.noDegreeNat = cvs.getFloat(i, 9);    //Percent: No high school degree  Native born
-        newSample.hsDegreeNat = cvs.getFloat(i, 10);    //Percent: High school/AA degree Native born
-        newSample.baDegreeNat = cvs.getFloat(i, 11);    //Percent: BA/higher Native born
+        years.push_back(_year);
+        samples.push_back(newYearSample);
         
-        //  Employment
-        //
-        newSample.employedTotal = cvs.getInt(i, 12);  //Number:  Employed
-        newSample.employedImm = cvs.getInt(i, 13);    //Number:  Imm  Employed
-        newSample.employedNat = cvs.getInt(i, 14);    //Number:  Natives  Employed
-        
-        newSample.employedImmShare = cvs.getFloat(i, 15);   // Imm share among all empl (%) (???)
-        newSample.unEmployment = cvs.getFloat(i, 16);       //Unemployment rate (%)
-        
-        //  Financial
-        //
-        newSample.poverty = cvs.getFloat(i, 17);        //Poverty rate (%)
-        newSample.homeOwners = cvs.getFloat(i, 18);     //Rate of home ownership (%)
-        
-        //  Ethnic/Cultural
-        //
-        newSample.black = cvs.getFloat(i, 19);          //Percent: Black
-        newSample.asian = cvs.getFloat(i, 20);          //Percent: Asian
-        newSample.latino = cvs.getFloat(i, 21);         //Percent: Latino
-        newSample.nonWhite = cvs.getFloat(i, 22);       //Percent: Non-white
-        newSample.nonEnglSpk = cvs.getFloat(i, 23);     //Percent: Speak other lang (than English)
-        
-        newSample.creativeClass = cvs.getFloat(i, 24);
-        
-        newYearSample.push_back(newSample);
     }
-    
-    //  TODO:
-    //          - Check between witch years need to be inserted
-    //
-    years.push_back(_year);
-    samples.push_back(newYearSample);
 }
 
 int MpiData::getTotalYears(){
@@ -159,62 +209,222 @@ string MpiData::getState( int _cityId ){
 }
 
 float MpiData::getLatitud( int _cityId ){
-    return cities[_cityId].latitud;
+    return cities[_cityId].lat;
 }
 
 float MpiData::getLongitud( int _cityId ){
-    return cities[_cityId].longitud;
+    return cities[_cityId].lon;
 }
 
-CitySample& MpiData::getSample( int _yearId, int _cityId ){
+float MpiData::getPctVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId ){
+    
+    //  If year not provide let's return the last censed year
+    //
+    if ( _yearId == -1 ){
+        _yearId = years.size()-1;
+    }
+    
+    return  samples[_yearId][_cityId].getPctValue(_mpiPctValue);
+}
+
+int MpiData::getNumVal( mpiPctValue _mpiPctValue, int _cityId , int _yearId){
+    
+    //  If year not provide let's return the last censed year
+    //
+    if ( _yearId == -1 ){
+        _yearId = years.size()-1;
+    }
+    
+    return  samples[_yearId][_cityId].getNumValue(_mpiPctValue);
+}
+
+int MpiData::getNumVal( mpiNumValue _mpiNumValue, int _cityId , int _yearId){
+    //  If year not provide let's return the last censed year
+    //
+    if ( _yearId == -1 ){
+        _yearId = years.size()-1;
+    }
+    
+    return  samples[_yearId][_cityId].getNumValue(_mpiNumValue);
+}
+
+float MpiData::getMinPctVal( mpiPctValue _mpiPctValue, int _cityId ){
+    
+    //  If city ID is not provide search on for the MIN value of all cities
+    //
+    float minVal = 100000000;
+    
+    if ( _cityId == -1 ){
+        
+        for (int i = 0; i < getTotalCities(); i++ ){
+            float val = getMinPctVal( _mpiPctValue, i );
+            
+            if  (val < minVal)
+                minVal = val;
+        }
+        
+        return minVal;
+    } else {
+        
+        for (int i = 0; i < years.size(); i++) {
+            float val = samples[i][_cityId].getPctValue( _mpiPctValue );
+            
+            if  (val < minVal)
+                minVal = val;
+        }
+        
+        return minVal;
+    }
+}
+
+float MpiData::getMaxPctVal( mpiPctValue _mpiPctValue, int _cityId ){
+    
+    //  If city ID is not provide search on for the MAX value of all cities
+    //
+    float maxVal = 0;
+    
+    if ( _cityId == -1 ){
+        
+        for (int i = 0; i < getTotalCities(); i++ ){
+            float val = getMaxPctVal( _mpiPctValue, i );
+            
+            if  (val > maxVal)
+                maxVal = val;
+        }
+        
+        return maxVal;
+        
+    } else {
+        
+        for (int i = 0; i < years.size(); i++) {
+            float val = samples[i][_cityId].getPctValue( _mpiPctValue );
+            
+            if  (val > maxVal)
+                maxVal = val;
+        }
+        
+        return maxVal;
+    }
+}
+
+int MpiData::getMinNumVal( mpiPctValue _mpiPctValue, int _cityId ){
+    //  If city ID is not provide search on for the MIN value of all cities
+    //
+    int minVal = 100000000;
+    
+    if ( _cityId == -1 ){
+        
+        for (int i = 0; i < getTotalCities(); i++ ){
+            float val = getMinNumVal( _mpiPctValue, i );
+            
+            if  (val < minVal)
+                minVal = val;
+        }
+        
+        return minVal;
+    } else {
+        
+        for (int i = 0; i < years.size(); i++) {
+            float val = samples[i][_cityId].getNumValue( _mpiPctValue );
+            
+            if  (val < minVal)
+                minVal = val;
+        }
+        
+        return minVal;
+    }
+}
+
+int MpiData::getMaxNumVal( mpiPctValue _mpiPctValue, int _cityId ){
+    //  If city ID is not provide search on for the MAX value of all cities
+    //
+    int maxVal = 0;
+    
+    if ( _cityId == -1 ){
+        
+        for (int i = 0; i < getTotalCities(); i++ ){
+            float val = getMaxNumVal( _mpiPctValue, i );
+            
+            if  (val > maxVal)
+                maxVal = val;
+        }
+        
+        return maxVal;
+        
+    } else {
+        
+        for (int i = 0; i < years.size(); i++) {
+            float val = samples[i][_cityId].getNumValue( _mpiPctValue );
+            
+            if  (val > maxVal)
+                maxVal = val;
+        }
+        
+        return maxVal;
+    }
+}
+
+int MpiData::getMinNumVal( mpiNumValue _mpiNumValue, int _cityId ){
+    //  If city ID is not provide search on for the MIN value of all cities
+    //
+    int minVal = 100000000;
+    
+    if ( _cityId == -1 ){
+        
+        for (int i = 0; i < getTotalCities(); i++ ){
+            float val = getMinNumVal( _mpiNumValue, i );
+            
+            if  (val < minVal)
+                minVal = val;
+        }
+        
+        return minVal;
+    } else {
+        
+        for (int i = 0; i < years.size(); i++) {
+            float val = samples[i][_cityId].getNumValue( _mpiNumValue );
+            
+            if  (val < minVal)
+                minVal = val;
+        }
+        
+        return minVal;
+    }
+}
+
+int MpiData::getMaxNumVal( mpiNumValue _mpiNumValue, int _cityId ){
+    //  If city ID is not provide search on for the MAX value of all cities
+    //
+    int maxVal = 0;
+    
+    if ( _cityId == -1 ){
+        
+        for (int i = 0; i < getTotalCities(); i++ ){
+            float val = getMaxNumVal( _mpiNumValue, i );
+            
+            if  (val > maxVal)
+                maxVal = val;
+        }
+        
+        return maxVal;
+        
+    } else {
+        
+        for (int i = 0; i < years.size(); i++) {
+            float val = samples[i][_cityId].getNumValue( _mpiNumValue );
+            
+            if  (val > maxVal)
+                maxVal = val;
+        }
+        
+        return maxVal;
+    }
+}
+
+mpiCitySample& MpiData::getSample( int _yearId, int _cityId ){
     return samples[_yearId][_cityId];
 }
 
-float MpiData::getMinVal( mpiValue _mpiValue, int _cityId){
-    float minVal = 100000000;
-    for (int i = 0; i < years.size(); i++) {
-        float val = samples[i][_cityId].getValue( _mpiValue );
-        
-        if  (val < minVal)
-            minVal = val;
-    }
-    
-    return minVal;
-}
-
-float MpiData::getMaxVal( mpiValue _mpiValue, int _cityId){
-    float maxVal = 0;
-    for (int i = 0; i < years.size(); i++) {
-        float val = samples[i][_cityId].getValue( _mpiValue );
-        
-        if  (val > maxVal)
-            maxVal = val;
-    }
-    
-    return maxVal;
-}
-
-float MpiData::getMinVal( mpiValue _mpiValue ){
-    
-    float minVal = 100000000;
-    for (int i = 0; i < getTotalCities(); i++ ){
-        float val = getMinVal( _mpiValue, i );
-        
-        if  (val < minVal)
-            minVal = val;
-    }
-    
-    return minVal;
-}
-
-float MpiData::getMaxVal( mpiValue _mpiValue ){
-    float minVal = 0;
-    for (int i = 0; i < getTotalCities(); i++ ){
-        float val = getMinVal( _mpiValue, i );
-        
-        if  (val > minVal)
-            minVal = val;
-    }
-    
-    return minVal;
+vector<mpiCitySample>& MpiData::getSamples( int _yearId ){
+    return samples[_yearId];
 }
