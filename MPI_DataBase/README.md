@@ -30,12 +30,14 @@ Reference:
 	++  Ten cities with fastest growing foreign-born population 
 	+++ Five cities most actively recruiting the foreign born
 	
+![cities](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/cities.png)
+	
 Over this cities in each of the three years (2000, 2005, and 2010) you will see: 
 
 * Number: Total population* Number of immigrants* Immigrant share (%)* % immigrants who are recent arrivals (arrived within the last 10 years)* Among immigrant adults (pop. 25+): % low-, middle-, and high skilled* Among native adults (pop. 25+): % low-, middle-, and high skilled* Number of all employed workers (pop. 16+)* Number of immigrant employed workers (pop. 16+)* Number of native employed workers (pop. 16+)* Immigrant share (% among all employed)* % Unemployed (of total pop.)* % in Poverty (of total pop.)* % Speakers of languages other than English, % Black, % Asian, % Latino, and % who are non-whites (of total pop.) (these serve as proxies for ethnic/linguistic diversity)* % ‘Creative class’ (i.e., share employed in professional occupations and had at least a bachelor’s degree among all employed adults) For more on the creative class, see Richard Florida who argued that there is a strong connection between a large-scale presence of the creative class of workers – people who work in science and technology; business and management; arts, culture and
 entertainment; medicine and education – and the prosperity of cities. [More information](http:// www.washingtonmonthly.com/features/2001/0205.florida.html) 
 ## Sources
-* Scores from the Best-Performing Cities Index (the Milken Institute index, 2010) The Best-Performing Cities index ranks US metropolitan areas by how well they are creating and sustaining jobs and economic growth. The components include job, wage and salary, and technology growth. In most years, these give a good indication of the underlying structural performance of regional economics. [More information](http://bestcities.milkeninstitute.org/bestcities2012.taf?rankyear=2010&type=rank200)* Scores from the City Well-Being Index[3] (the Gallup Poll index, 2010) The Gallup-Healthways Well-Being Index score is an average of six sub-indexes, which individually examine life evaluation, emotional health, work environment, physical health, healthy behaviors, and access to basic necessities. The overall score and each of the six sub-index scores are calculated on a scale from 0 to 100, where a score of 100 represents the ideal. In 2010, the national average score was 66.8. [More information](http://www.gallup.com/poll/145913/City-Wellbeing-Tracking.aspx)
+* Scores from the Best-Performing Cities Index (the Milken Institute index, 2010) The Best-Performing Cities index ranks US metropolitan areas by how well they are creating and sustaining jobs and economic growth. The components include job, wage and salary, and technology growth. In most years, these give a good indication of the underlying structural performance of regional economics. [More information](http://bestcities.milkeninstitute.org/bestcities2012.taf?rankyear=2010&type=rank200)* Scores from the City Well-Being Index (the Gallup Poll index, 2010) The Gallup-Healthways Well-Being Index score is an average of six sub-indexes, which individually examine life evaluation, emotional health, work environment, physical health, healthy behaviors, and access to basic necessities. The overall score and each of the six sub-index scores are calculated on a scale from 0 to 100, where a score of 100 represents the ideal. In 2010, the national average score was 66.8. [More information](http://www.gallup.com/poll/145913/City-Wellbeing-Tracking.aspx)
 
 ## Preparation of the dataBased
 [The data base received](https://docs.google.com/file/d/0B9yD5YLwxGTIck8zUS1adGRuVEk/edit?usp=sharing) was a MS Excel document with a big table with the three years census one next to the other. In order to work and process the data it was necessary to:
@@ -112,10 +114,33 @@ For a more information about this values please read this [overview of the data]
 		int     nId;
     
 		int     getNumValue( mpiNumValue _numValue ) // return TOTAL NUMBERS 
-    
 		float   getPctValue( mpiPctValue _pctValue ) // return PERCENTAGES (PCT)
-		
     	int 	getNumValue( mpiPctValue _pctValue ) // transform from PCT to TOTAL NUMBER 
         
 It's important to know that if you are getting a ```-1``` it's because the information can't be provided. For example if you want to get the TOTAL NUMBER of immigrant with no deegree it can't be done. Looking above you will see that's because that percentage it of the population over 25+ witch we don't have. Those 6 options with the same characteristic are the only one that can be satisfy correctly. 
 
+### 
+
+### Examples
+
+#### DataVisualizer Basic
+This is a simple example how to extract basic information from the dataBase. Then it's up to you to make great work with it.
+
+![chart](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/chart.png)
+
+#### DataVisualizer Comp
+This is a little more complex example that gives you an idea to how compear and explore on the database for patterns by making comparisons.
+
+![chart_comp](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/comp.png)
+
+#### GeoDataLocator Basic
+This is another super simple example of how to put data on the map. Just a starting point to help you in context the data.
+Using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
+
+![cities](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/cities.png)
+
+#### GeoDataLocator Comp
+This is another super simple example of how to put and compare data on the map. Just a starting point to help you in context the data.
+Using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
+
+![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/images/map.png)
