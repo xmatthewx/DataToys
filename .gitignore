@@ -63,3 +63,14 @@ Desktop.ini
 # Miscellaneous
 .mailmap
 
+unity_datatoys/Library/
+unity_marble_immigration/Library/
+unity_marble_immigration/Temp/
+unity*.csproj
+unity_datatoys/*.csproj
+unity_datatoys/*.pidb
+unity_datatoys/*.sln
+unity_marble_immigration/*.csproj
+unity_marble_immigration/*.pidb
+unity_marble_immigration/*.unityproj
+unity_marble_immigration/*.sln
