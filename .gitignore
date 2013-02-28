@@ -79,3 +79,5 @@ unity_marble_immigration/*.csproj
 unity_marble_immigration/*.pidb
 unity_marble_immigration/Library/
 unity_marble_immigration/*.sln
+unity_marble_immigration/*.unityproj
+unity_marble_immigration/Temp/
