@@ -12,14 +12,7 @@
 #define MPI_DATA
 
 #include "ofMain.h"
-
-#include <iostream.h>
-#include <string.h>
-#include <vector.h>
-
 #include "MpiElements.h"
-
-using namespace std;
 
 class MpiData {
 public:

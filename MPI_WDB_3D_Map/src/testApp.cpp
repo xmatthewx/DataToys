@@ -13,15 +13,15 @@ void testApp::setup(){
 	ofEnableAlphaBlending();
     ofNoFill();
 	
-    mesh.setMode(OF_PRIMITIVE_POINTS);
+    mesh.setMode(OF_PRIMITIVE_LINES);
     mesh.clear();
     
-//    loadSegments( rivers, "africa-riv.txt" );
-//    loadSegments( rivers, "asia-riv.txt" );
-//    loadSegments( rivers, "europe-riv.txt" );
-//    loadSegments( rivers, "namer-riv.txt" );
-//    loadSegments( rivers, "samer-riv.txt" );
-//    addToMesh(rivers, ofColor(40,40,255));
+    loadSegments( rivers, "africa-riv.txt" );
+    loadSegments( rivers, "asia-riv.txt" );
+    loadSegments( rivers, "europe-riv.txt" );
+    loadSegments( rivers, "namer-riv.txt" );
+    loadSegments( rivers, "samer-riv.txt" );
+    addToMesh(rivers, ofFloatColor(0.0,0.3,0.6));
     
     loadSegments( coast, "africa-cil.txt" );
     loadSegments( coast, "asia-cil.txt" );
@@ -37,8 +37,13 @@ void testApp::setup(){
     loadSegments(borders, "samer-bdy.txt");
     addToMesh( borders, ofFloatColor(0.7) );
     
-//    loadSegments( stateLines, "namer-pby.txt" );
-//    addToMesh( stateLines, ofFloatColor(1.0,0,0,) );
+    loadSegments( stateLines, "namer-pby.txt" );
+    addToMesh( stateLines, ofFloatColor(0.7,0,0) );
+    
+    dBase.loadCities("cities.csv");
+    dBase.loadYear(2000, "2000.csv");
+    dBase.loadYear(2005, "2005.csv");
+    dBase.loadYear(2010, "2010.csv");
     
     cam.rotate(180, 0, 1, 0);
     ofSetVerticalSync(true);
@@ -91,6 +96,8 @@ void testApp::addToMesh( vector< vector<GeoPoint> > & segments, ofFloatColor _co
     
     for(int i = 0; i < segments.size(); i++){
 		
+        ofVec3f lastPoint;
+        
         for (int j = 0; j < segments[i].size(); j++){
             
             ofQuaternion latRot, longRot;
@@ -98,8 +105,14 @@ void testApp::addToMesh( vector< vector<GeoPoint> > & segments, ofFloatColor _co
             longRot.makeRotate(segments[i][j].longitude, 0, 1, 0);
             
             ofVec3f worldPoint = latRot * longRot * -center;
-            mesh.addColor( _color );
-            mesh.addVertex(worldPoint);
+            if ( j > 0 ){
+                mesh.addColor( _color );
+                mesh.addVertex(lastPoint);
+                mesh.addColor( _color );
+                mesh.addVertex(worldPoint);
+            }
+            
+            lastPoint = worldPoint;
         }
     }
 }
@@ -122,6 +135,17 @@ void testApp::draw(){
 	
     ofSetColor(255);
 	mesh.draw();
+    
+    ofVec3f center = ofVec3f(0,0,300);
+    for (int i = 0; i < dBase.getTotalCities(); i++){
+        ofQuaternion latRot, longRot;
+        latRot.makeRotate(dBase.getLatitud(i), 1, 0, 0);
+        longRot.makeRotate(dBase.getLongitud(i), 0, 1, 0);
+        ofVec3f worldPoint = latRot * longRot * -center;
+        
+        ofSetColor(200,0,10);
+        ofSphere(worldPoint, 1);
+    }
     
     ofPopMatrix();
     

@@ -272,13 +272,14 @@ This is a little more complex example that gives you an idea to how compear and 
 ![chart_comp](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/comp.png)
 
 #### GeoDataLocator Basic
-This is another super simple example of how to put data on the map. Just a starting point to help you in context the data.
-Using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
+This is another super simple example of how to put data on the map. This map is using [ModestMap API](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of) how mades a oF wrapper that load the content from the web. It's just like google maps. This is just a starting for start thinking and prototyping awesome ideas. 
 
 ![cities](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/cities.png)
 
 #### GeoDataLocator Comp
-This is another super simple example of how to put and compare data on the map. Just a starting point to help you in context the data.
-Using [ModestMap](http://modestmaps.com/) thanks to [Tom Carden project for OF](https://github.com/RandomEtc/modestmaps-of)
-
+A little more complex project that use the [ModestMap](http://modestmaps.com/) is this one where you can search and compare values of our dataBase by pointing in one direction inside the map. The idea is this could be on your phone an by knowing where are you and in what direction are you pointing show you different information
 ![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/map.png)
+
+#### WDB 3D map
+This is essentially the same thing than the last two examples but on 3D. It's using an CIA World DataBank witch is very big and precise. It takes time to load all those point but the result looks just like Tron and WarGames at the same time.
+![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/imagesWDB.png)

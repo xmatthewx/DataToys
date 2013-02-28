@@ -2,6 +2,10 @@
 
 #include "ofMain.h"
 
+//  Our happy dataBase
+//
+#include "MpiData.h"
+
 /*
 /   World DataBank, ASCII text version
 /   http://www.evl.uic.edu/pape/data/WDB/
@@ -85,6 +89,8 @@ public:
     vector< vector<GeoPoint> > borders;
     vector< vector<GeoPoint> > stateLines;
     ofMesh  mesh;
+    
+    MpiData     dBase;
     
     ofEasyCam   cam;
 };
