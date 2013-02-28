@@ -1,6 +1,6 @@
 # Making it in America: *The Immigrant Success Index*###### a [PETlab](http://petlab.parsons.edu/) project with [PRI](http://www.pri.org/) and the [Migration Policy Institute](http://www.migrationpolicy.org/) January 2013
 ## The Big IdeaImmigrants have been the engine of growth for the US since its founding as a nation. But that engine may be stalling after years of bitter debate over how to treat immigrants.The Immigrant Success Index aims to add hard facts and aha’s to the public debate about immigrants and immigration reform. Today’s debate and media coverage frames issues as “us” versus “them”, as legal versus illegal, and as faceless people versus neighbors, friends and colleagues. The political climate is opening now for a richer discussion and we want to enrich the debate. We plan to do that by telling personal stories about immigrant life here and uncovering the cities where immigrants are more likely to succeed and what policies, services and factors help or hurt them.## The Partners
-* **[Public Radio International (PRI)](http://www.pri.org/)** is the second leading distributor of public radio shows after NPR. We produce and/or distribute shows like This American Life, The World, Afropop, Studio360 and Tavis Smiley. Our mission is to give people the information, insights and cultural experiences they need to live in a diverse, interconnected world. And we have a major initiative to reach and engage immigrants in the US to bring their voices into public debate, provide unbiased stories of their role and experiences in our society, and get all Americans involved in Siguring out our approach to immigrants and immigration. PRI is creating the Index as a way to help local journalists and citizens tell true stories about immigrant life in America as well as city policy makers who are interested in attracting and engaging their immigrant populations.* **[The Migration Policy Institute (MPI)](http://www.migrationpolicy.org/) ** is an independent, nonpartisan, nonproSit think tank in Washington, DC dedicated to analyzing the movement of people worldwide. It believes that sound immigration and integration policies result from balanced analysis, solid data, and the engagement of a spectrum of stakeholders — from community leaders and immigrant organizations to the policy elite — interested in immigration policy and its human consequences. MPI is gathering the data and providing the analytic smarts to ensure the Immigrant Success Index is as accurate, honest and revealing as possible.
+* **[Public Radio International (PRI)](http://www.pri.org/)** is the second leading distributor of public radio shows after NPR. We produce and/or distribute shows like This American Life, The World, Afropop, Studio360 and Tavis Smiley. Our mission is to give people the information, insights and cultural experiences they need to live in a diverse, interconnected world. And we have a major initiative to reach and engage immigrants in the US to bring their voices into public debate, provide unbiased stories of their role and experiences in our society, and get all Americans involved in Siguring out our approach to immigrants and immigration. PRI is creating the Index as a way to help local journalists and citizens tell true stories about immigrant life in America as well as city policy makers who are interested in attracting and engaging their immigrant populations.* **[The Migration Policy Institute (MPI)](http://www.migrationpolicy.org/)** is an independent, nonpartisan, nonproSit think tank in Washington, DC dedicated to analyzing the movement of people worldwide. It believes that sound immigration and integration policies result from balanced analysis, solid data, and the engagement of a spectrum of stakeholders — from community leaders and immigrant organizations to the policy elite — interested in immigration policy and its human consequences. MPI is gathering the data and providing the analytic smarts to ensure the Immigrant Success Index is as accurate, honest and revealing as possible.
 ## The DataBase 
 The dataBase consist on 3 samples made between 2000,2005 and 2010 over the following 25 cities (selected out of the 100 most populous cities in the United States)![cities](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/cities.png)
 	Baltimore, MD +++		Boise City, ID +++	
@@ -64,7 +64,7 @@ If you are interested on making your own project you need:
 
 2. Then you also need to copy the [```.h``` and ```.cpp``` files in the src folder](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/src) ( [```MpiElements.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiElements.h), [```MpiData.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.h) and [```MpiData.cpp```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.cpp) ) to your ```src/``` folder on your openFrameworks project. 
 
-3. In order to use the dataBase you need to declare a ```MpiData``` object on your ```testApp.h``` together with the ```#include ``` call to the ```MpiData.h``` header file.
+3. In order to use the dataBase you need to declare a ```MpiData``` object on your ```testApp.h``` together with the ```#include ``` call to the [```MpiData.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.h) header file.
 
 That should look like:
 
@@ -96,7 +96,7 @@ That should look like:
 After doing this you are ready to load and use the data base.
 
 ### Elements
-The elements that are going to be use for the API are defined at ```MpiElements.h``` and it's composed by: 
+The elements that are going to be use for the API are defined at [```MpiElements.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiElements.h) and it's composed by: 
 
 * ```mpiCity```: this object contain the information of the chosen cities and is populated with the [```cities.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/cities.csv). The object contain the following variables
 
@@ -165,7 +165,7 @@ It's important to know that if you are getting a ```-1``` it's because the infor
 
 ### DataBase Motor 
 
-* ```MpiData```: This object represent the core of this API. It's an C++ object ready for loading the .csv and process it information. Once this files are loads you can make request asking for specific information. The methods are
+* [```MpiData```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.h): This object represent the core of this API. It's an C++ object ready for loading the .csv and process it information. Once this files are loads you can make request asking for specific information. The methods are
 
 
 		//		Loading of the information
