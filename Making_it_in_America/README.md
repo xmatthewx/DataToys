@@ -43,6 +43,58 @@ entertainment; medicine and education – and the prosperity of cities. [More in
 	
 ## The DataBase and the openSource C++ API for openFrameworks
 
+### Installing the MPI Data Base
+
+This tools are wrote on openFrameworks. So we first need to install openFrameworks and then adding this libraries to it:
+
+1. The first thing to do is [download and install openFrameworks](http://www.openframeworks.cc/download/)
+
+2. After that download this repo clicking on the download buttom:
+![github](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/github.png)
+
+3. Unzip the folder an place it on your ```apps``` folder.
+
+![github](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/apps.png)
+
+From that you can compile and see the project examples.
+
+If you are interested on making your own project you need:
+
+1. You need to copy the [.csv files](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/data) ( [```cities.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/cities.csv), [```2000.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2000.csv), [```2005.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2005.csv) and [```2010.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2010.csv)) to the ```bin/data``` folder on your openFrameworks project.
+
+2. Then you also need to copy the [```.h``` and ```.cpp``` files in the src folder](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/src) ( [```MpiElements.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiElements.h), [```MpiData.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.h) and [```MpiData.cpp```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.cpp) ) to your ```src/``` folder on your openFrameworks project. 
+
+3. In order to use the dataBase you need to declare a ```MpiData``` object on your ```testApp.h``` together with the ```#include ``` call to the ```MpiData.h``` header file.
+
+That should look like:
+
+	#pragma once
+
+	#include "ofMain.h"
+	#include "MpiData.h"
+
+	class testApp : public ofBaseApp{
+	public:
+    	void setup();
+    	void update();
+    	void draw();
+
+    	void keyPressed  (int key);
+    	void keyReleased(int key);
+    	void mouseMoved(int x, int y );
+    	void mouseDragged(int x, int y, int button);
+    	void mousePressed(int x, int y, int button);
+    	void mouseReleased(int x, int y, int button);
+    	void windowResized(int w, int h);
+    	void dragEvent(ofDragInfo dragInfo);
+    	void gotMessage(ofMessage msg);
+    
+    	MpiData     dBase;
+ 
+	};
+  
+After doing this you are ready to load and use the data base.
+
 ### Elements
 The elements that are going to be use for the API are defined at ```MpiElements.h``` and it's composed by: 
 
@@ -178,44 +230,6 @@ That could be:
 In this case the number is converted from percentage to total numbers. ( ***Note:*** *that you can not do this with the six percentages related to education because they are based just on the population over 25+*
 
 Other important thing to realize of this example is the absence of the year ID. In this particular case means that if the year is not provided it will return the value of the last register year. Also when you are asking for maximum and minimum values you don't need to specify the city. In those cases it will search for all the max and min values on all the years and all the cities of the dataBase
-
-### Installing the MPI Data Base
-
-You need to copy the [.csv files](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/data) ( [```cities.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/cities.csv), [```2000.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2000.csv), [```2005.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2005.csv) and [```2010.csv```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/data/2010.csv)) to the ```bin/data``` folder on your openFrameworks project.
-
-Then you also need to copy the [```.h``` and ```.cpp``` files in the src folder](https://github.com/patriciogonzalezvivo/DataToys/tree/master/Making_it_in_America/src) ( [```MpiElements.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiElements.h), [```MpiData.h```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.h) and [```MpiData.cpp```](https://github.com/patriciogonzalezvivo/DataToys/blob/master/Making_it_in_America/src/MpiData.cpp) ) to your ```src/``` folder on your openFrameworks project. 
-
-In order to use the dataBase you need to declare a ```MpiData``` object on your ```testApp.h``` together with the ```#include ``` call to the ```MpiData.h``` header file.
-
-That should look like:
-
-	#pragma once
-
-	#include "ofMain.h"
-	#include "MpiData.h"
-
-	class testApp : public ofBaseApp{
-	public:
-    	void setup();
-    	void update();
-    	void draw();
-
-    	void keyPressed  (int key);
-    	void keyReleased(int key);
-    	void mouseMoved(int x, int y );
-    	void mouseDragged(int x, int y, int button);
-    	void mousePressed(int x, int y, int button);
-    	void mouseReleased(int x, int y, int button);
-    	void windowResized(int w, int h);
-    	void dragEvent(ofDragInfo dragInfo);
-    	void gotMessage(ofMessage msg);
-    
-    	MpiData     dBase;
- 
-	};
-  
-After doing this you are ready to load and use the data base.
-
 
 ### Using the MPI Data Base
 First you need to load the .csv files
