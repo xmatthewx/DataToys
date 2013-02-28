@@ -106,7 +106,7 @@ void testApp::addToMesh( vector< vector<GeoPoint> > & segments, ofFloatColor _co
 
 //--------------------------------------------------------------
 void testApp::update(){
-	
+	ofSetWindowTitle(ofToString(ofGetFrameRate()));
 }
 
 //--------------------------------------------------------------
@@ -116,7 +116,7 @@ void testApp::draw(){
     cam.begin();
 
     ofPushMatrix();
-    ofRotateY(ofGetFrameNum()*0.1);
+    ofRotateY(ofGetFrameNum()*0.01);
 	ofSetColor(255, 20);
 	ofSphere(0, 0, 0, 300);
 	
