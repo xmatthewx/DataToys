@@ -37,8 +37,8 @@ void testApp::setup(){
     loadSegments(borders, "samer-bdy.txt");
     addToMesh( borders, ofFloatColor(0.7) );
     
-    loadSegments( stateLines, "namer-pby.txt" );
-    addToMesh( stateLines, ofFloatColor(0.7,0,0) );
+    loadSegments( states, "namer-pby.txt" );
+    addToMesh( states, ofFloatColor(0.7,0,0) );
     
     dBase.loadCities("cities.csv");
     dBase.loadYear(2000, "2000.csv");
@@ -92,7 +92,7 @@ void testApp::loadSegments( vector< vector<GeoPoint> > &segments, string _file){
 }
 
 void testApp::addToMesh( vector< vector<GeoPoint> > & segments, ofFloatColor _color ){
-    ofVec3f center = ofVec3f(0,0,300);
+    ofVec3f center = ofVec3f(0,0,-300);
     
     for(int i = 0; i < segments.size(); i++){
 		
@@ -104,7 +104,8 @@ void testApp::addToMesh( vector< vector<GeoPoint> > & segments, ofFloatColor _co
             latRot.makeRotate(segments[i][j].latitude, 1, 0, 0);
             longRot.makeRotate(segments[i][j].longitude, 0, 1, 0);
             
-            ofVec3f worldPoint = latRot * longRot * -center;
+            ofVec3f worldPoint = latRot * longRot * center;
+            
             if ( j > 0 ){
                 mesh.addColor( _color );
                 mesh.addVertex(lastPoint);

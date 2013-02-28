@@ -87,7 +87,8 @@ public:
     vector< vector<GeoPoint> > coast;
     vector< vector<GeoPoint> > rivers;
     vector< vector<GeoPoint> > borders;
-    vector< vector<GeoPoint> > stateLines;
+    vector< vector<GeoPoint> > states;
+    
     ofMesh  mesh;
     
     MpiData     dBase;
