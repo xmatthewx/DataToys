@@ -282,4 +282,4 @@ A little more complex project that use the [ModestMap](http://modestmaps.com/) i
 
 #### WDB 3D map
 This is essentially the same thing than the last two examples but on 3D. It's using an CIA World DataBank witch is very big and precise. It takes time to load all those point but the result looks just like Tron and WarGames at the same time.
-![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/imagesWDB.png)
+![map](https://raw.github.com/patriciogonzalezvivo/DataToys/master/Making_it_in_America/images/WDB.png)
